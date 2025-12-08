@@ -1,0 +1,57 @@
+---
+// Componente de fondo animado simple y elegante
+---
+
+<div class="animated-background"></div>
+
+<style>
+  .animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #0a0e27;
+    background-image: url('/images/fondo.png');
+    background-size: 800px 800px;
+    background-position: center;
+    background-repeat: repeat;
+    opacity: 0.5;
+    animation: gentle-move 120s linear infinite;
+  }
+
+  /* Animación ultra suave - solo movimiento de posición */
+  @keyframes gentle-move {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 800px 800px;
+    }
+  }
+
+  /* Reducir animaciones si el usuario lo prefiere */
+  @media (prefers-reduced-motion: reduce) {
+    .animated-background {
+      animation: none;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .animated-background {
+      background-size: 600px 600px;
+      opacity: 0.4;
+    }
+
+    @keyframes gentle-move {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 600px 600px;
+      }
+    }
+  }
+</style>
