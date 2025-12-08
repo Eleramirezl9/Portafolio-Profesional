@@ -297,9 +297,9 @@ const navItems = [
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', (e) => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href') || '');
+      const target = document.querySelector((e.currentTarget as HTMLAnchorElement).getAttribute('href') || '');
       if (target) {
         const headerOffset = 80;
         const elementPosition = target.getBoundingClientRect().top;
