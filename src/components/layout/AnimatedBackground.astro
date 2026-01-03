@@ -1,8 +1,117 @@
 ---
-// Componente de fondo animado simple y elegante
+/**
+ * AnimatedBackground Component
+ * 
+ * Componente de fondo animado profesional con SVG
+ * - Animaciones suaves y eficientes
+ * - Detecta preferencias de reducción de movimiento
+ * - Totalmente responsivo
+ * - Optimizado para performance (0 imágenes)
+ */
 ---
 
-<div class="animated-background"></div>
+<div class="animated-background">
+  <svg 
+    class="background-svg"
+    viewBox="0 0 1920 1080"
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Define gradients y filtros */}
+    <defs>
+      {/* Gradients principales */}
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.15" />
+        <stop offset="50%" style="stop-color:#0066cc;stop-opacity:0.1" />
+        <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:0" />
+      </linearGradient>
+
+      <radialGradient id="grad2" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.2" />
+        <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:0" />
+      </radialGradient>
+
+      <radialGradient id="grad3" cx="70%" cy="70%" r="60%">
+        <stop offset="0%" style="stop-color:#0066cc;stop-opacity:0.15" />
+        <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:0" />
+      </radialGradient>
+
+      {/* Filtro de desenfoque suave */}
+      <filter id="softGlow">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+      </filter>
+
+      {/* Patrón de puntos */}
+      <pattern id="dotPattern" x="80" y="80" width="80" height="80" patternUnits="userSpaceOnUse">
+        <circle cx="40" cy="40" r="1.5" fill="#00d4ff" opacity="0.1" />
+      </pattern>
+    </defs>
+
+    {/* Fondo base */}
+    <rect width="1920" height="1080" fill="#0a0e27" />
+
+    {/* Capa 1: Patrón de puntos */}
+    <rect width="1920" height="1080" fill="url(#dotPattern)" />
+
+    {/* Capa 2: Gradiente lineal animado */}
+    <rect 
+      class="gradient-layer-1"
+      width="1920" 
+      height="1080" 
+      fill="url(#grad1)"
+    />
+
+    {/* Capa 3: Gradiente radial superior izquierda animada */}
+    <circle 
+      class="gradient-circle-1"
+      cx="480" 
+      cy="270" 
+      r="600"
+      fill="url(#grad2)"
+      filter="url(#softGlow)"
+    />
+
+    {/* Capa 4: Gradiente radial inferior derecha animada */}
+    <circle 
+      class="gradient-circle-2"
+      cx="1440" 
+      cy="810" 
+      r="550"
+      fill="url(#grad3)"
+      filter="url(#softGlow)"
+    />
+
+    {/* Capa 5: Líneas orgánicas animadas */}
+    <g class="organic-lines" opacity="0.08">
+      <path 
+        d="M 100 200 Q 500 100 900 200 T 1700 300" 
+        stroke="#00d4ff" 
+        stroke-width="2" 
+        fill="none"
+      />
+      <path 
+        d="M 150 600 Q 600 500 1200 600 T 1850 700" 
+        stroke="#0066cc" 
+        stroke-width="1.5" 
+        fill="none"
+      />
+      <path 
+        d="M 200 900 Q 700 800 1300 900 T 1900 1000" 
+        stroke="#00d4ff" 
+        stroke-width="1" 
+        fill="none"
+      />
+    </g>
+
+    {/* Capa 6: Elementos flotantes */}
+    <g class="floating-elements" opacity="0.06">
+      <circle class="float-1" cx="300" cy="200" r="80" fill="#00d4ff" />
+      <circle class="float-2" cx="1600" cy="400" r="100" fill="#0066cc" />
+      <circle class="float-3" cx="900" cy="800" r="70" fill="#00d4ff" />
+      <circle class="float-4" cx="400" cy="900" r="90" fill="#0066cc" />
+    </g>
+  </svg>
+</div>
 
 <style>
   .animated-background {
@@ -12,45 +121,208 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    overflow: hidden;
     background-color: #0a0e27;
-    background-image: url('/images/fondo.png');
-    background-size: 800px 800px;
-    background-position: center;
-    background-repeat: repeat;
-    opacity: 0.5;
-    animation: gentle-move 120s linear infinite;
   }
 
-  /* Animación ultra suave - solo movimiento de posición */
-  @keyframes gentle-move {
-    0% {
-      background-position: 0 0;
+  .background-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  /* Animación 1: Gradiente lineal que se mueve diagonalmente */
+  .gradient-layer-1 {
+    animation: slideGradient 25s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes slideGradient {
+    0%, 100% {
+      opacity: 0.8;
+      transform: translateX(0) translateY(0);
     }
-    100% {
-      background-position: 800px 800px;
+    50% {
+      opacity: 0.6;
+      transform: translateX(30px) translateY(-30px);
     }
   }
 
-  /* Reducir animaciones si el usuario lo prefiere */
+  /* Animación 2: Círculo superior izquierdo pulsante y móvil */
+  .gradient-circle-1 {
+    animation: float-tl 30s ease-in-out infinite;
+    transform-origin: 480px 270px;
+  }
+
+  @keyframes float-tl {
+    0%, 100% {
+      r: 600px;
+      cx: 480px;
+      cy: 270px;
+      opacity: 0.8;
+    }
+    50% {
+      r: 650px;
+      cx: 550px;
+      cy: 220px;
+      opacity: 0.6;
+    }
+  }
+
+  /* Animación 3: Círculo inferior derecho pulsante y móvil */
+  .gradient-circle-2 {
+    animation: float-br 35s ease-in-out infinite;
+    transform-origin: 1440px 810px;
+  }
+
+  @keyframes float-br {
+    0%, 100% {
+      r: 550px;
+      cx: 1440px;
+      cy: 810px;
+      opacity: 0.7;
+    }
+    50% {
+      r: 600px;
+      cx: 1370px;
+      cy: 850px;
+      opacity: 0.5;
+    }
+  }
+
+  /* Animación 4: Líneas orgánicas que se mueven sutilmente */
+  .organic-lines {
+    animation: lineFlow 40s ease-in-out infinite;
+  }
+
+  @keyframes lineFlow {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+      opacity: 0.08;
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+      opacity: 0.12;
+    }
+    50% {
+      transform: translateY(0) translateX(20px);
+      opacity: 0.08;
+    }
+    75% {
+      transform: translateY(20px) translateX(10px);
+      opacity: 0.12;
+    }
+  }
+
+  /* Animación 5: Elementos flotantes - movimiento orgánico */
+  .float-1 {
+    animation: float-orbit-1 28s ease-in-out infinite;
+  }
+
+  .float-2 {
+    animation: float-orbit-2 32s ease-in-out infinite;
+  }
+
+  .float-3 {
+    animation: float-orbit-3 26s ease-in-out infinite;
+  }
+
+  .float-4 {
+    animation: float-orbit-4 30s ease-in-out infinite;
+  }
+
+  @keyframes float-orbit-1 {
+    0%, 100% { cx: 300px; cy: 200px; r: 80px; }
+    25% { cx: 380px; cy: 150px; r: 85px; }
+    50% { cx: 350px; cy: 280px; r: 80px; }
+    75% { cx: 250px; cy: 250px; r: 85px; }
+  }
+
+  @keyframes float-orbit-2 {
+    0%, 100% { cx: 1600px; cy: 400px; r: 100px; }
+    25% { cx: 1520px; cy: 350px; r: 105px; }
+    50% { cx: 1540px; cy: 480px; r: 100px; }
+    75% { cx: 1650px; cy: 450px; r: 105px; }
+  }
+
+  @keyframes float-orbit-3 {
+    0%, 100% { cx: 900px; cy: 800px; r: 70px; }
+    25% { cx: 980px; cy: 750px; r: 75px; }
+    50% { cx: 950px; cy: 850px; r: 70px; }
+    75% { cx: 820px; cy: 820px; r: 75px; }
+  }
+
+  @keyframes float-orbit-4 {
+    0%, 100% { cx: 400px; cy: 900px; r: 90px; }
+    25% { cx: 480px; cy: 850px; r: 95px; }
+    50% { cx: 430px; cy: 970px; r: 90px; }
+    75% { cx: 320px; cy: 930px; r: 95px; }
+  }
+
+  /* Reducción de movimiento para usuarios que lo prefieran */
   @media (prefers-reduced-motion: reduce) {
-    .animated-background {
+    .gradient-layer-1,
+    .gradient-circle-1,
+    .gradient-circle-2,
+    .organic-lines,
+    .floating-elements circle {
       animation: none;
     }
   }
 
-  /* Responsive */
+  /* Responsive: Ajustes para tablets */
+  @media (max-width: 1024px) {
+    .background-svg {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Responsive: Ajustes para móviles */
   @media (max-width: 768px) {
-    .animated-background {
-      background-size: 600px 600px;
-      opacity: 0.4;
+    .background-svg {
+      transform: scale(1.3);
     }
 
-    @keyframes gentle-move {
-      0% {
-        background-position: 0 0;
+    @keyframes slideGradient {
+      0%, 100% {
+        opacity: 0.7;
+        transform: translateX(0) translateY(0);
       }
-      100% {
-        background-position: 600px 600px;
+      50% {
+        opacity: 0.5;
+        transform: translateX(20px) translateY(-20px);
+      }
+    }
+
+    @keyframes float-tl {
+      0%, 100% {
+        r: 450px;
+        cx: 480px;
+        cy: 270px;
+        opacity: 0.6;
+      }
+      50% {
+        r: 500px;
+        cx: 550px;
+        cy: 220px;
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes float-br {
+      0%, 100% {
+        r: 400px;
+        cx: 1440px;
+        cy: 810px;
+        opacity: 0.5;
+      }
+      50% {
+        r: 450px;
+        cx: 1370px;
+        cy: 850px;
+        opacity: 0.3;
       }
     }
   }
