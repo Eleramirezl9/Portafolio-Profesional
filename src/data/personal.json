@@ -1,6 +1,6 @@
 {
-  "name": "Julio Alexander Ramírez Lorenzana",
-  "title": "Desarrollador Full-Stack",
+  "name": "Eddy Alexander Ramírez Lorenzana",
+  "title": "Desarrollador Frontend con conocimientos en Backend y QA",
   "subtitle": "Especialista en Clean Architecture & Desarrollo Escalable",
   "location": "Ciudad de Guatemala, Guatemala",
   "email": "eddyramirez150@gmail.com",
@@ -12,10 +12,10 @@
   "social": {
     "linkedin": "https://www.linkedin.com/in/eddy-alexander-ramirez-lorenzana-196a47267",
     "github": "https://github.com/Eleramirezl9",
-    "website": "https://eddyramirez.dev"
+    "website": "https://eddyramirez150@gmail.com"
   },
 
-  "bio": "Desarrollador Full-Stack con sólidos conocimientos en arquitecturas de software escalables y desarrollo de aplicaciones web completas. 5 años de formación académica en ingeniería de sistemas complementados con 1 año de desarrollo práctico autodidacta en proyectos empresariales. Especialista en implementación de Clean Architecture, TDD y desarrollo de soluciones robustas.",
+  "bio": "Desarrollador Frontend con sólidos conocimientos en arquitecturas de software escalables y desarrollo de aplicaciones web completas. 5 años de formación académica en ingeniería de sistemas complementados con 1 año de desarrollo práctico autodidacta en proyectos empresariales. Especialista en implementación de Clean Architecture, TDD y desarrollo de soluciones robustas.",
 
   "skills": {
     "backend": [
