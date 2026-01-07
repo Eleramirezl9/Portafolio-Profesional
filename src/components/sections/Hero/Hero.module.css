@@ -1,0 +1,331 @@
+/**
+ * HERO SECTION STYLES - Módulo CSS
+ * 
+ * Estilos COMPLETAMENTE separados de Hero.astro
+ * Aislados y sin conflictos CSS
+ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--header-height);
+  overflow: hidden;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+/* Greeting */
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+.greetingIcon {
+  color: var(--color-accent-primary);
+  flex-shrink: 0;
+}
+
+/* Title */
+.heroTitle {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-extrabold);
+}
+
+.nameHighlight {
+  display: inline-block;
+  animation: fadeInUp 0.6s ease-out;
+  will-change: transform, opacity;
+}
+
+.nameRest {
+  display: inline-block;
+  animation: fadeInUp 0.6s ease-out 0.1s backwards;
+  will-change: transform, opacity;
+}
+
+/* Subtitle */
+.heroSubtitle {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--color-accent-primary);
+  margin-bottom: var(--space-3);
+  font-weight: var(--font-semibold);
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+  will-change: transform, opacity;
+}
+
+/* Description */
+.heroDescription {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-6);
+  max-width: 600px;
+  animation: fadeInUp 0.6s ease-out 0.3s backwards;
+  will-change: transform, opacity;
+}
+
+/* Tags/Badges */
+.heroTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.6s ease-out 0.4s backwards;
+  will-change: transform, opacity;
+}
+
+/* CTA Buttons */
+.heroCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.6s ease-out 0.5s backwards;
+  will-change: transform, opacity;
+}
+
+/* Social Links */
+.heroSocial {
+  display: flex;
+  gap: var(--space-4);
+  animation: fadeInUp 0.6s ease-out 0.6s backwards;
+  will-change: transform, opacity;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--overlay-light);
+  border: 1px solid var(--border-color);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-normal) var(--ease-out);
+  text-decoration: none;
+}
+
+.socialLink:hover {
+  color: var(--color-accent-primary);
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--color-accent-primary);
+  transform: translateY(-2px);
+}
+
+/* Decorative Elements */
+.heroDecoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.decorationCircle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 0.15) 0%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  animation: float 6s ease-in-out infinite;
+}
+
+.decoration1 {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  right: 10%;
+  animation-delay: 0s;
+}
+
+.decoration2 {
+  width: 300px;
+  height: 300px;
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 2s;
+}
+
+.decoration3 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: 30%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px);
+  }
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  animation: fadeIn 1s ease-out 1.5s backwards;
+}
+
+.mouse {
+  width: 24px;
+  height: 40px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 12px;
+  position: relative;
+}
+
+.wheel {
+  width: 4px;
+  height: 8px;
+  background: var(--color-text-muted);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 2s ease-in-out infinite;
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    top: 8px;
+  }
+  100% {
+    opacity: 0;
+    top: 24px;
+  }
+}
+
+.scrollText {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Invisibilidad inicial para animaciones */
+.nameHighlight,
+.nameRest,
+.heroSubtitle,
+.heroDescription,
+.heroTags,
+.heroCta,
+.heroSocial {
+  opacity: 0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation fill mode */
+.nameHighlight,
+.nameRest,
+.heroSubtitle,
+.heroDescription,
+.heroTags,
+.heroCta,
+.heroSocial {
+  animation-fill-mode: forwards;
+}
+
+/* Accessibility: respeto prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .nameHighlight,
+  .nameRest,
+  .heroSubtitle,
+  .heroDescription,
+  .heroTags,
+  .heroCta,
+  .heroSocial {
+    animation: none;
+    opacity: 1;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: none; }
+  }
+  
+  @keyframes scroll {
+    0%, 100% { opacity: 1; top: 8px; }
+  }
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-12);
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.5rem;
+  }
+
+  .heroDescription {
+    font-size: var(--text-base);
+  }
+
+  .heroCta {
+    flex-direction: column;
+  }
+
+  .decorationCircle {
+    display: none;
+  }
+}
