@@ -11,7 +11,7 @@ import Layout from '@layouts/Base.astro';
 import Header from '@components/layout/Header.astro';
 import Hero from '@components/sections/Hero/Hero.astro';
 import About from '@components/sections/About/About.astro';
-import Projects from '@components/sections/Projects.astro';
+import Projects from '@components/sections/Projects/Projects.astro';
 
 // Inyección de dependencias: importar datos aquí
 import personalData from '@data/personal';
@@ -26,6 +26,6 @@ import { NAV_ITEMS } from '@data/constants';
   {/* About: inyectar datos como props */}
   <About personalData={personalData} />
   
-  {/* Projects: pendiente refactorizar */}
-  <Projects />
+  {/* Projects: inyectar datos como props */}
+  <Projects experience={personalData.experience} socialData={personalData.social} />
 </Layout>

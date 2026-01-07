@@ -1,0 +1,70 @@
+/**
+ * PROJECTS SECTION STYLES - Módulo CSS
+ * 
+ * Estilos COMPLETAMENTE separados de Projects.astro
+ * Aislados y sin conflictos CSS
+ */
+
+.projects {
+  position: relative;
+  background: var(--color-bg-primary);
+}
+
+/* Projects Grid */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+}
+
+/* Call to Action */
+.projectsCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-12);
+  text-align: center;
+  background: var(--overlay-light);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+}
+
+.projectsCta p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.projectsCta button,
+.projectsCta a {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .projectsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .projectsCta {
+    flex-direction: column;
+    padding: var(--space-8);
+  }
+
+  .projectsCta button,
+  .projectsCta a {
+    width: 100%;
+    justify-content: center;
+  }
+}
