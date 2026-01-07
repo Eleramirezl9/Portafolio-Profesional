@@ -167,52 +167,68 @@
 
   "experience": [
     {
-      "title": "Sistema E-Commerce Empresarial",
-      "period": "Diciembre 2023 - Presente",
-      "description": "Arquitectura modular con separación clara de responsabilidades. Implementación de Clean Architecture con capas bien definidas.",
-      "technologies": ["Next.js 14", "Node.js", "PostgreSQL", "Prisma", "Stripe", "Redis"],
+      "title": "Gestor Documental MINEDUC",
+      "period": "2024",
+      "description": "Sistema de gestión documental empresarial para administración de archivos y trámites. Proyecto de graduación que implementa arquitectura escalable con separación clara de responsabilidades.",
+      "technologies": ["Next.js", "Node.js", "PostgreSQL", "TypeScript", "Docker"],
       "highlights": [
-        "Sistema de pagos integrado (Stripe y PayPal)",
-        "Carrito de compras en tiempo real con WebSockets",
-        "Panel administrativo con análisis de ventas",
-        "Optimizado para 1,000 usuarios concurrentes"
-      ]
+        "Gestión completa de documentos y archivos",
+        "Sistema de permisos y roles granular",
+        "Búsqueda avanzada y versionado de documentos",
+        "Generación de reportes automatizados"
+      ],
+      "links": {
+        "demo": "https://gestor-documental-mineduc.vercel.app",
+        "github": "https://github.com/Eleramirezl9/gestor-documental-mineduc"
+      }
     },
     {
-      "title": "ERP de Administración Empresarial",
-      "period": "Agosto 2023 - Noviembre 2023",
-      "description": "Sistema multi-módulo con arquitectura hexagonal y dominio bien modelado.",
-      "technologies": ["Node.js", "React", "PostgreSQL", "Docker", "Jest"],
+      "title": "Sistema E-Commerce CISNET",
+      "period": "2024",
+      "description": "Plataforma de venta online con carrito de compras, gestión de inventario y procesamiento de pagos. Arquitectura modular con Clean Architecture.",
+      "technologies": ["Next.js 14", "Node.js", "PostgreSQL", "Stripe", "Redis"],
+      "highlights": [
+        "Carrito de compras en tiempo real",
+        "Sistema de pagos integrado (Stripe)",
+        "Panel administrativo con análisis",
+        "Optimización para múltiples usuarios concurrentes"
+      ],
+      "links": {
+        "demo": "https://venta-de-software.vercel.app/",
+        "github": "https://github.com/Eleramirezl9/CISNET-Tienda-"
+      }
+    },
+    {
+      "title": "CRM Multi-Sucursal Empresarial",
+      "period": "Diciembre 2023 - Presente",
+      "description": "Sistema ERP completo para administración empresarial con múltiples módulos. Implementa arquitectura hexagonal con dominio bien modelado y testing robusto.",
+      "technologies": ["Next.js", "Node.js", "React", "PostgreSQL", "Docker"],
       "highlights": [
         "Módulos de contabilidad, inventario y facturación",
         "Generación de reportes PDF y Excel en tiempo real",
         "Testing completo con alta cobertura de código",
-        "Automatización de procesos manuales"
-      ]
+        "Dashboard con análisis de ventas y métricas"
+      ],
+      "links": {
+        "demo": "https://crm-multi-sucursal.vercel.app/iniciar-sesion",
+        "github": "https://github.com/Eleramirezl9/CRM"
+      }
     },
     {
-      "title": "Plataforma de Red Social",
+      "title": "Plataforma de Red Social CASIRA",
       "period": "Mayo 2023 - Julio 2023",
-      "description": "Feed en tiempo real con actualizaciones instantáneas y sistema completo de interacción social.",
-      "technologies": ["Next.js", "Socket.io", "MongoDB", "Cloudinary"],
+      "description": "Red social con feed en tiempo real, sistema de amigos y mensajería instantánea. Arquitectura escalable con actualizaciones en tiempo real vía WebSockets.",
+      "technologies": ["Next.js", "Socket.io", "MongoDB", "Cloudinary", "JWT"],
       "highlights": [
         "Sistema de amigos, mensajes y notificaciones",
-        "Subida y procesamiento de imágenes",
-        "Búsqueda avanzada de usuarios y contenido",
-        "Algoritmo de feed personalizado"
-      ]
-    },
-    {
-      "title": "Sistema de Documentación Técnica",
-      "period": "Febrero 2023 - Abril 2023",
-      "description": "Plataforma de documentación con generación automática y búsqueda avanzada.",
-      "technologies": ["VuePress", "Node.js", "MongoDB", "Elasticsearch"],
-      "highlights": [
-        "Generación automática desde comentarios",
-        "Búsqueda full-text en documentación",
-        "Sistema de versionado y comparación",
-        "Centralización de conocimiento técnico"
-      ]
+        "Subida y procesamiento de imágenes optimizado",
+        "Feed personalizado con algoritmo inteligente",
+        "Chat en tiempo real con notificaciones push"
+      ],
+      "links": {
+        "demo": "https://proyecto-casira-web.vercel.app/",
+        "github": "https://github.com/Eleramirezl9"
+      }
     }
   ],
 
