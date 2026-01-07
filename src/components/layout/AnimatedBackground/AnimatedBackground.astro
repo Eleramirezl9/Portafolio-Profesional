@@ -1,0 +1,181 @@
+---
+/**
+ * AnimatedBackground Component
+ *
+ * Fondo animado tipo red 3D con partículas en tonos rosa
+ * - Movimiento lento y sutil
+ * - Líneas de conexión entre partículas cercanas
+ * - Efecto profesional para portafolio
+ */
+
+import styles from './AnimatedBackground.module.css';
+---
+
+<div class={styles.animatedBackground}>
+  <canvas id="networkCanvas"></canvas>
+</div>
+
+<script>
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    baseRadius: number;
+    brightness: number;
+    targetBrightness: number;
+    pulseSpeed: number;
+  }
+
+  class NetworkBackground {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    particles: Particle[] = [];
+    particleCount: number = 60;
+    connectionDistance: number = 150;
+    animationId: number | null = null;
+    isTabHidden: boolean = false;
+
+    constructor() {
+      this.canvas = document.getElementById('networkCanvas') as HTMLCanvasElement;
+      this.ctx = this.canvas.getContext('2d')!;
+      this.setupCanvas();
+      this.createParticles();
+      this.animate();
+      window.addEventListener('resize', () => this.setupCanvas());
+
+      document.addEventListener('visibilitychange', () => {
+        this.isTabHidden = document.hidden;
+        if (!this.isTabHidden && !this.animationId) {
+          this.animate();
+        } else if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+          this.animationId = null;
+        }
+      });
+    }
+
+    setupCanvas(): void {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      if (this.particles.length === 0) {
+        this.createParticles();
+      }
+    }
+
+    createParticles(): void {
+      this.particles = [];
+      for (let i = 0; i < this.particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          radius: Math.random() * 2 + 1.5,
+          baseRadius: Math.random() * 2 + 1.5,
+          brightness: Math.random() * 0.5 + 0.5,
+          targetBrightness: Math.random() * 0.5 + 0.5,
+          pulseSpeed: Math.random() * 0.02 + 0.01
+        });
+      }
+    }
+
+    updateParticles(): void {
+      for (const particle of this.particles) {
+        // Movimiento suave
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Rebote en los bordes
+        if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+
+        // Mantener dentro de límites
+        particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+        particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+
+        // Pulso de brillo suave
+        particle.brightness += (particle.targetBrightness - particle.brightness) * particle.pulseSpeed;
+
+        if (Math.abs(particle.brightness - particle.targetBrightness) < 0.01) {
+          particle.targetBrightness = Math.random() * 0.4 + 0.6;
+        }
+      }
+    }
+
+    drawParticles(): void {
+      for (const particle of this.particles) {
+        // Partícula rosa suave con brillo sutil
+        const gradient = this.ctx.createRadialGradient(
+          particle.x,
+          particle.y,
+          0,
+          particle.x,
+          particle.y,
+          particle.radius * 2
+        );
+        gradient.addColorStop(0, `rgba(255, 180, 200, ${particle.brightness})`);
+        gradient.addColorStop(0.5, `rgba(220, 140, 170, ${particle.brightness * 0.5})`);
+        gradient.addColorStop(1, 'rgba(220, 140, 170, 0)');
+
+        this.ctx.fillStyle = gradient;
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, particle.radius * 2, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
+    }
+
+    drawConnections(): void {
+      for (let i = 0; i < this.particles.length; i++) {
+        const p1 = this.particles[i];
+
+        for (let j = i + 1; j < this.particles.length; j++) {
+          const p2 = this.particles[j];
+
+          const dx = p2.x - p1.x;
+          const dy = p2.y - p1.y;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < this.connectionDistance * this.connectionDistance) {
+            const distance = Math.sqrt(distSq);
+            const opacity = (1 - distance / this.connectionDistance) * 0.5;
+
+            // Línea suave rosa
+            this.ctx.strokeStyle = `rgba(220, 150, 180, ${opacity})`;
+            this.ctx.lineWidth = 1;
+            this.ctx.beginPath();
+            this.ctx.moveTo(p1.x, p1.y);
+            this.ctx.lineTo(p2.x, p2.y);
+            this.ctx.stroke();
+          }
+        }
+      }
+    }
+
+    animate = (): void => {
+      if (this.isTabHidden) return;
+
+      // Limpiar canvas
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      this.updateParticles();
+      this.drawConnections();
+      this.drawParticles();
+
+      this.animationId = requestAnimationFrame(this.animate);
+    };
+
+    destroy(): void {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new NetworkBackground());
+  } else {
+    new NetworkBackground();
+  }
+</script>

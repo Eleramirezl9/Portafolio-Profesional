@@ -1,0 +1,305 @@
+/* Header Container */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed);
+  background: rgba(18, 5, 16, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 150, 180, 0.1);
+  transition: all var(--transition-normal) var(--ease-out);
+}
+
+.header.scrolled {
+  background: rgba(18, 5, 16, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Container */
+.container {
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  gap: var(--space-8);
+}
+
+/* Logo */
+.logo {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  transition: transform var(--transition-fast) var(--ease-out);
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logoText {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.textGradient {
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .textGradient {
+  transform: translateY(-1px);
+}
+
+.logoDot {
+  color: var(--color-accent-primary);
+  font-size: var(--text-2xl);
+}
+
+/* Navigation Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex: 1;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  position: relative;
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast) var(--ease-out);
+  padding: var(--space-2) 0;
+  text-decoration: none;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-primary),
+    var(--color-accent-secondary)
+  );
+  transition: width var(--transition-normal) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--color-text-primary);
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+}
+
+/* CTA Button */
+.navCta {
+  display: flex;
+}
+
+.ctaButton {
+  padding: var(--space-3) var(--space-6);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary),
+    var(--color-accent-secondary)
+  );
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--ease-out);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+}
+
+/* Mobile Menu Button */
+.mobileMenuBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-2);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast) var(--ease-out);
+}
+
+.mobileMenuBtn:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+}
+
+.hamburger {
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  transition: all var(--transition-fast) var(--ease-out);
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  transition: all var(--transition-fast) var(--ease-out);
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+.mobileMenuBtn.active .hamburger {
+  background: transparent;
+}
+
+.mobileMenuBtn.active .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.mobileMenuBtn.active .hamburger::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background: rgba(18, 5, 16, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 150, 180, 0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal) var(--ease-out);
+}
+
+.mobileMenu.open {
+  max-height: 500px;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: var(--space-3);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast) var(--ease-out);
+  text-decoration: none;
+}
+
+.mobileNavLink:hover {
+  color: var(--color-text-primary);
+  background: var(--overlay-light);
+}
+
+.mobileNavLink:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+}
+
+.mobileCta {
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary),
+    var(--color-accent-secondary)
+  );
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--ease-out);
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin-top: var(--space-2);
+  width: 100%;
+}
+
+.mobileCta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.mobileCta:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .navLinks {
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .nav {
+    gap: var(--space-4);
+  }
+}

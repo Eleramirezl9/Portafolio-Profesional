@@ -7,7 +7,28 @@
 
 .projects {
   position: relative;
-  background: var(--color-bg-primary);
+  background: linear-gradient(
+    180deg,
+    #120510 0%,
+    #1a0a15 50%,
+    #120510 100%
+  );
+}
+
+/* Rich Burgundy Background */
+.roseBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 180, 200, 0.15) 0%,
+    rgba(255, 150, 180, 0.08) 25%,
+    rgba(255, 150, 180, 0.04) 35%,
+    transparent 50%
+  );
+  background-size: 100% 100%;
+  pointer-events: none;
 }
 
 /* Projects Grid */
@@ -26,9 +47,9 @@
   gap: var(--space-4);
   padding: var(--space-12);
   text-align: center;
-  background: var(--overlay-light);
+  background: rgba(125, 211, 252, 0.03);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(125, 211, 252, 0.1);
 }
 
 .projectsCta p {

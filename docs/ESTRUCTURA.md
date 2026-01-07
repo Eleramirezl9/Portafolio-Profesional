@@ -2,176 +2,325 @@
 
 ## Arquitectura de Carpetas
 
-Esta es la estructura organizada del portafolio, diseñada para escalabilidad y mantenibilidad.
+Esta es la estructura organizada del portafolio después de la **Refactorización Fase 4**, diseñada siguiendo principios SOLID para escalabilidad y mantenibilidad.
 
 ```
 Portafolio/
 ├── src/
-│   ├── components/          # Componentes reutilizables
-│   │   ├── ui/             # Componentes UI básicos (Button, Card, Input, etc.)
-│   │   ├── layout/         # Componentes de layout (Header, Footer, Nav, etc.)
-│   │   └── sections/       # Secciones de página (Hero, Projects, About, Skills, etc.)
+│   ├── components/                 # Componentes reutilizables (SOLID)
+│   │   ├── ui/                    # Componentes atómicos/UI
+│   │   │   ├── Button.astro       # Botón reutilizable (4 variantes)
+│   │   │   ├── Button.module.css
+│   │   │   ├── Badge.astro        # Etiqueta (4 colores)
+│   │   │   ├── Badge.module.css
+│   │   │   ├── Card.astro         # Contenedor (3 variantes)
+│   │   │   └── Card.module.css
+│   │   │
+│   │   ├── shared/                # Componentes compartidos
+│   │   │   ├── SectionHeader.astro
+│   │   │   └── SectionHeader.module.css
+│   │   │
+│   │   ├── sections/              # Secciones de página
+│   │   │   ├── Hero/
+│   │   │   │   ├── Hero.astro
+│   │   │   │   └── Hero.module.css
+│   │   │   ├── About/
+│   │   │   │   ├── About.astro
+│   │   │   │   └── About.module.css
+│   │   │   ├── Projects/
+│   │   │   │   ├── Projects.astro
+│   │   │   │   ├── Projects.module.css
+│   │   │   │   ├── ProjectCard.astro
+│   │   │   │   └── ProjectCard.module.css
+│   │   │
+│   │   └── layout/                # Componentes de layout
+│   │       ├── Header/
+│   │       │   ├── Header.astro
+│   │       │   └── Header.module.css
+│   │       └── AnimatedBackground/
+│   │           ├── AnimatedBackground.astro
+│   │           └── AnimatedBackground.module.css
 │   │
-│   ├── layouts/            # Layouts base de Astro
-│   │   └── Base.astro      # Layout principal con estructura HTML
+│   ├── data/                      # Capa de datos
+│   │   ├── types.ts              # Interfaces TypeScript (20+)
+│   │   ├── constants.ts          # Constantes centralizadas
+│   │   ├── personal.ts           # Datos tipificados
+│   │   └── personal.json         # Data source único
 │   │
-│   ├── pages/              # Páginas del sitio (rutas)
-│   │   ├── index.astro     # Página principal
-│   │   └── proyectos/      # Sección de proyectos
+│   ├── utils/                     # Funciones reutilizables
+│   │   ├── helpers.ts           # 20+ funciones auxiliares
+│   │   ├── formatters.ts        # 15+ formateadores
+│   │   └── animations.ts        # Constantes de animaciones
 │   │
-│   ├── content/            # Contenido en Markdown
-│   │   └── projects/       # Proyectos en formato .md
+│   ├── layouts/                   # Layouts de Astro
+│   │   └── Base.astro            # Layout HTML principal
 │   │
-│   ├── data/               # Datos estáticos (JSON, TS)
-│   │   ├── skills.json     # Lista de habilidades
-│   │   ├── experience.json # Experiencia laboral
-│   │   └── projects.ts     # Metadata de proyectos
+│   ├── pages/                     # Rutas públicas
+│   │   └── index.astro           # Composition Root
 │   │
-│   ├── styles/             # Estilos CSS organizados
-│   │   ├── global.css      # Estilos globales
-│   │   ├── variables.css   # Variables CSS (colores, fuentes, etc.)
-│   │   └── animations.css  # Animaciones reutilizables
-│   │
-│   └── utils/              # Utilidades y helpers
-│       ├── animations.ts   # Funciones de animación (GSAP)
-│       └── helpers.ts      # Funciones auxiliares
+│   └── styles/                    # Estilos globales
+│       ├── global.css            # Reset y estilos base
+│       └── variables.css         # Variables CSS
 │
-├── public/                 # Archivos estáticos
-│   ├── images/            # Imágenes optimizadas
-│   └── fonts/             # Fuentes personalizadas
+├── docs/                          # Documentación técnica
+│   ├── ARCHITECTURE.md           # ✨ NUEVO: Principios SOLID
+│   ├── COMPONENTS.md             # ✨ NUEVO: Guía de componentes
+│   ├── STRUCTURE.md              # Este archivo (actualizado)
+│   ├── CONVENCIONES.md           # Reglas y convenciones
+│   ├── OPTIMIZACION.md           # Guía de optimización
+│   ├── REFACTORING_SUMMARY.md    # Resumen de fases
+│   ├── GRAPH_BACKGROUND.md       # ❌ Eliminar (legacy)
+│   └── ANIMATED_BACKGROUND.md    # ❌ Eliminar (legacy)
 │
-└── docs/                   # Documentación del proyecto
-    ├── ESTRUCTURA.md       # Este archivo
-    ├── CONVENCIONES.md     # Reglas y convenciones
-    └── OPTIMIZACION.md     # Guía de optimización
+├── public/                        # Assets estáticos
+│   ├── images/                   # Imágenes optimizadas
+│   └── fonts/                    # Fuentes personalizadas
+│
+├── package.json                   # Dependencias del proyecto
+├── tsconfig.json                  # Configuración TypeScript
+├── astro.config.mjs              # Configuración Astro
+├── README.md                      # Documentación principal
+└── .gitignore
+
 ```
 
-## Descripción de Carpetas
+## Descripción Detallada de Carpetas
 
 ### `src/components/`
-Todos los componentes reutilizables del proyecto.
+
+Todos los componentes reutilizables siguiendo **Component-Driven Development**.
 
 #### `ui/`
-Componentes de interfaz básicos y reutilizables:
-- Botones, inputs, cards
-- Componentes atómicos sin lógica de negocio
-- Diseñados para ser usados en múltiples contextos
+Componentes atómicos sin lógica de negocio:
+- **Button** - Botones con 4 variantes (primary, secondary, ghost, outline)
+- **Badge** - Etiquetas con 4 temas (primary, success, warning, info)
+- **Card** - Contenedores con 3 estilos (default, glow, outline)
 
-**Ejemplo**: `Button.astro`, `Card.tsx`, `Badge.astro`
+**Patrón:** Single Responsibility, Open/Closed
 
-#### `layout/`
-Componentes estructurales de la página:
-- Header, Footer, Navigation
-- Sidebars, Wrappers
-- Componentes que definen la estructura visual
+#### `shared/`
+Componentes reutilizables en múltiples contextos:
+- **SectionHeader** - Encabezado de sección (usado en About, Projects, etc)
 
-**Ejemplo**: `Header.astro`, `Footer.astro`, `Navigation.tsx`
+**Patrón:** Composition, DRY
 
 #### `sections/`
-Secciones completas de páginas:
-- Hero section, About section
-- Cada sección es una pieza grande de contenido
-- Pueden combinar múltiples componentes UI
+Secciones principales de la página (orqueestan datos + UI):
+- **Hero/** - Presentación principal
+- **About/** - Información personal y logros
+- **Projects/** - Galería de proyectos
+  - ProjectCard.astro - Renderiza UN proyecto
 
-**Ejemplo**: `Hero.astro`, `Projects.astro`, `Skills.tsx`
+**Patrón:** Container/Presentational, Data inyectada via props
 
-### `src/layouts/`
-Templates base de Astro que envuelven páginas.
+#### `layout/`
+Componentes globales:
+- **Header/** - Navegación superior (inyecta `navItems` como prop)
+- **AnimatedBackground/** - Fondo animado (canvas 3D)
 
-**Ejemplo**:
-```astro
----
-// Base.astro
----
-<!DOCTYPE html>
-<html>
-  <head>...</head>
-  <body>
-    <slot />
-  </body>
-</html>
-```
-
-### `src/pages/`
-Sistema de rutas de Astro (file-based routing):
-- `index.astro` → `/`
-- `proyectos.astro` → `/proyectos`
-- `proyectos/[slug].astro` → `/proyectos/mi-proyecto`
-
-### `src/content/`
-Content Collections de Astro para contenido en Markdown:
-- Type-safe
-- Con frontmatter validado
-- Ideal para blogs, proyectos, casos de estudio
+**Patrón:** Layout, Dependency Inversion
 
 ### `src/data/`
-Datos estáticos en JSON o TypeScript:
-- Skills, experiencia, proyectos
-- Configuraciones
-- Datos que se importan en componentes
 
-### `src/styles/`
-Estilos CSS organizados por función:
-- `global.css` - Reset, estilos base
-- `variables.css` - Custom properties CSS
-- `animations.css` - Keyframes y animaciones
+Capa centralizada de datos y tipos:
+
+- **types.ts** - 20+ interfaces TypeScript (NavItem, PersonalData, Experience, etc)
+- **constants.ts** - Constantes reutilizables (NAV_ITEMS, COLORS, SPACING, etc)
+- **personal.ts** - Exporta personal.json tipificado
+- **personal.json** - Única fuente de verdad de datos
+
+**Patrón:** Data Centralization, Type Safety
 
 ### `src/utils/`
-Funciones helper y utilidades:
-- Lógica reutilizable
-- Funciones puras
-- Helpers de formato, fecha, etc.
 
-### `public/`
-Assets estáticos servidos directamente:
-- Imágenes (optimizadas)
-- Fuentes
-- Favicons, robots.txt
+Funciones puras reutilizables:
 
-### `docs/`
-Documentación técnica del proyecto:
-- Arquitectura y decisiones
-- Guías de desarrollo
-- Convenciones y patrones
+- **helpers.ts** - Lógica auxiliar (formatDate, getInitials, calculateYears, etc)
+- **formatters.ts** - Transformadores de datos (formatPhone, capitalizeString, etc)
+- **animations.ts** - Constantes de animaciones (duraciones, easing, etc)
 
-## Ventajas de Esta Estructura
+**Patrón:** DRY, Single Responsibility
 
-### Escalabilidad
-- Fácil agregar nuevos componentes sin desorganizar
-- Separación clara de responsabilidades
-- Crece ordenadamente con el proyecto
+### `src/layouts/`
 
-### Mantenibilidad
-- Encuentras archivos rápidamente
-- Entiendes la función de cada carpeta
-- Cambios localizados y predecibles
+Layouts base de Astro:
+- **Base.astro** - HTML estructura, incluye Header y AnimatedBackground
 
-### Developer Experience
-- Autocompletado intuitivo en el IDE
-- Imports organizados y claros
-- Menos tiempo buscando archivos
+### `src/pages/`
 
-### Performance
-- Code splitting natural por carpetas
-- Optimización selectiva por tipo
-- Lazy loading organizado
+Rutas públicas (Astro auto-genera URLs basado en nombres):
+- **index.astro** - Página principal (Composition Root)
+  - Importa datos desde `@data/`
+  - Inyecta datos en componentes via props
+  - Punto único de inyección de dependencias
 
-## Convenciones de Naming
+### `src/styles/`
 
-### Archivos
-- **Componentes**: PascalCase → `Button.astro`, `HeroSection.tsx`
-- **Utilidades**: camelCase → `animations.ts`, `helpers.ts`
-- **Estilos**: kebab-case → `global.css`, `animations.css`
-- **Content**: kebab-case → `mi-proyecto.md`
+Estilos globales:
+- **global.css** - Reset CSS, tipografía base
+- **variables.css** - Variables CSS (--color-*, --space-*, --font-*, etc)
 
-### Carpetas
-- Siempre en minúsculas
-- Plurales para colecciones: `components/`, `utils/`
-- Singular para tipos: `layout/`, `content/`
+**Nota:** Componentes usan CSS Modules (*.module.css) para aislar estilos
 
-## Próximos Pasos
+## Flujo de Datos
 
-1. Crear componentes base en `ui/`
-2. Configurar layout principal
-3. Agregar estilos globales
-4. Implementar secciones del portafolio
+```
+personal.json (data)
+    ↓
+personal.ts (tipificado)
+    ↓
+pages/index.astro (Composition Root)
+    ↓
+    ├→ Header (inyecta navItems)
+    ├→ Hero (inyecta personalData)
+    ├→ About (inyecta personalData)
+    └→ Projects (inyecta experience, socialData)
+        ↓
+        └→ ProjectCard (props específicas)
+```
+
+## Convenciones de Nomenclatura
+
+### Archivos y Carpetas
+
+| Tipo | Patrón | Ejemplo |
+|------|--------|---------|
+| Componente | PascalCase | `Button.astro`, `SectionHeader.astro` |
+| Carpeta | kebab-case | `animated-background/`, `project-card/` |
+| Función | camelCase | `formatDate()`, `calculateYears()` |
+| Constante | UPPER_SNAKE_CASE | `NAV_ITEMS`, `MAX_WIDTH` |
+| Variable | camelCase | `personalData`, `navItems` |
+| CSS Class | kebab-case | `.nav-link`, `.button-primary` |
+| CSS Variable | kebab-case con `--` | `--color-primary`, `--space-4` |
+
+### Estructura de Componentes
+
+```astro
+---
+/**
+ * Descripción del componente
+ * - Característica 1
+ * - Característica 2
+ */
+
+import type { Props } from './Component.types'; // Si es necesario
+import styles from './Component.module.css';
+
+interface Props {
+  title: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { title, variant = 'primary' } = Astro.props;
+---
+
+<!-- Markup con clases de styles -->
+<div class={`${styles.container} ${styles[variant]}`}>
+  {title}
+</div>
+```
+
+## Árbol de Dependencias (SRP)
+
+```
+personal.json (datos crudos)
+    ↓
+types.ts (tipificación)
+    ↓
+personal.ts (export tipificado)
+    ↓
+constants.ts (valores centralizados)
+    ↓
+utils/ (funciones puras)
+    ↓
+components/ui (componentes atómicos)
+    ↓
+components/shared (componentes compartidos)
+    ↓
+components/sections (orquestación de datos + UI)
+    ↓
+components/layout (estructura global)
+    ↓
+pages/index.astro (Composition Root)
+```
+
+## Escalabilidad Futura
+
+Esta estructura permite agregar:
+
+### Fase 5 - Testing
+```
+src/
+├── __tests__/
+│   ├── components/
+│   └── utils/
+```
+
+### Fase 6 - Internacionalización
+```
+src/
+├── i18n/
+│   ├── es.json
+│   ├── en.json
+│   └── helpers.ts
+```
+
+### Fase 7 - CMS Integration
+```
+src/
+├── api/
+│   └── cms.ts (Strapi, Contentful, etc)
+```
+
+## Características Clave
+
+✅ **Single Responsibility** - Cada archivo hace UNA cosa
+✅ **Type Safety** - TypeScript en todas partes
+✅ **DRY** - Cero duplicación de código
+✅ **CSS Isolation** - CSS Modules para cada componente
+✅ **Barrel Exports** - Imports limpios y organizados
+✅ **Composition** - Componentes pequeños combinables
+✅ **Props-based** - Configuración via props, no imports internos
+✅ **Responsive** - Mobile-first desde el diseño
+
+## Archivos Eliminados en Fase 4
+
+❌ `src/components/layout/Header.astro` (reemplazado por Header/)
+❌ `src/components/layout/AnimatedBackground.astro` (reemplazado por AnimatedBackground/)
+❌ `src/components/sections/Hero.astro` (reemplazado por Hero/)
+❌ `src/components/sections/About.astro` (reemplazado por About/)
+❌ `src/components/sections/Projects.astro` (reemplazado por Projects/)
+❌ `docs/GRAPH_BACKGROUND.md` (experimental, no usado)
+❌ `docs/ANIMATED_BACKGROUND.md` (documentación antigua)
+
+## Comandos Útiles
+
+```bash
+# Desarrollo
+npm run dev
+
+# Build
+npm run build
+
+# Preview
+npm run preview
+
+# Type check
+npm run check
+
+# Visualizar dependencias
+npm run build --stats
+```
+
+## Referencias
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Principios SOLID detallados
+- [COMPONENTS.md](./COMPONENTS.md) - Guía rápida de componentes
+- [CONVENCIONES.md](./CONVENCIONES.md) - Reglas de código
+- [Astro Docs](https://docs.astro.build)
+- [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
+
+---
+
+**Versión:** 2.0 (Refactorización Fase 4)
+**Última actualización:** Enero 2026

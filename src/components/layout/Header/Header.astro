@@ -1,0 +1,123 @@
+---
+import type { NavItem } from '@data/types';
+import styles from './Header.module.css';
+
+interface Props {
+  navItems: NavItem[];
+}
+
+const { navItems } = Astro.props;
+---
+
+<header class={styles.header}>
+  <div class={styles.container}>
+    <nav class={styles.nav}>
+      <!-- Logo -->
+      <a href="/" class={styles.logo}>
+        <span class={styles.logoText}>
+          <span class={styles.textGradient}>Eddy</span>
+          <span class={styles.logoDot}>.</span>dev
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class={`${styles.navLinks} hide-mobile`}>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class={styles.navLink}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA Button -->
+      <div class={`${styles.navCta} hide-mobile`}>
+        <a href="#contact" class={styles.ctaButton}>
+          Hablemos
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class={`${styles.mobileMenuBtn} hide-desktop`} aria-label="Abrir menú">
+        <span class={styles.hamburger}></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class={styles.mobileMenu}>
+    <ul class={styles.mobileNavLinks}>
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class={styles.mobileNavLink}>
+            {item.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="#contact" class={styles.mobileCta}>
+          Platiquemos soy eddy
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuBtn = document.querySelector('[class*="mobileMenuBtn"]')?.closest('button');
+  const mobileMenu = document.querySelector('[class*="mobileMenu"]:not([class*="mobileMenuBtn"])');
+  const mobileNavLinks = document.querySelectorAll('[class*="mobileNavLink"]:not([class*="mobileCta"])');
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close menu when clicking a link
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+
+  // Scroll effect
+  const header = document.querySelector('header');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll;
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(
+        (e.currentTarget as HTMLAnchorElement).getAttribute('href') || ''
+      );
+      if (target) {
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>

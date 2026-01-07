@@ -1,16 +1,14 @@
 /**
- * SECTIONS INDEX
+ * SECTIONS COMPONENTS
  * 
- * Referencia de componentes de sección disponibles
+ * Secciones principales de la página
+ * 
+ * Nota: Astro no soporta barrel exports para componentes .astro
+ * Importa directamente del archivo específico
+ * 
+ * Disponibles:
+ * - Hero: import Hero from '@components/sections/Hero/Hero.astro'
+ * - About: import About from '@components/sections/About/About.astro'
+ * - Projects: import Projects from '@components/sections/Projects/Projects.astro'
+ * - ProjectCard: import ProjectCard from '@components/sections/Projects/ProjectCard.astro'
  */
-
-// Componentes disponibles:
-// - Hero: Sección inicial con nombre, titulo y CTA
-// - About: Sección "sobre mí" con bio, educación y logros
-// - Projects: Sección de proyectos destacados
-// - ProjectCard: Componente individual de proyecto (reutilizable)
-
-export { default as Hero } from './Hero/Hero.astro';
-export { default as About } from './About/About.astro';
-export { default as Projects } from './Projects/Projects.astro';
-export { default as ProjectCard } from './Projects/ProjectCard.astro';

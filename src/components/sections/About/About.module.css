@@ -7,7 +7,7 @@
 
 .about {
   position: relative;
-  background: var(--color-bg-primary);
+  background: transparent; /* Permitir ver el gradiente de transición */
 }
 
 /* About Content Grid */
@@ -16,6 +16,8 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-12);
   align-items: start;
+  position: relative;
+  z-index: 1;
 }
 
 /* Bio Section - Left Column */

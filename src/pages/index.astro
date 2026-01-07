@@ -8,8 +8,9 @@
  */
 
 import Layout from '@layouts/Base.astro';
-import Header from '@components/layout/Header.astro';
+import Header from '@components/layout/Header/Header.astro';
 import Hero from '@components/sections/Hero/Hero.astro';
+import AnimatedBackground from '@components/layout/AnimatedBackground/AnimatedBackground.astro';
 import About from '@components/sections/About/About.astro';
 import Projects from '@components/sections/Projects/Projects.astro';
 
@@ -19,13 +20,35 @@ import { NAV_ITEMS } from '@data/constants';
 ---
 
 <Layout>
-  <Header />
+  <Header navItems={NAV_ITEMS} />
   {/* Hero: inyectar datos como props */}
   <Hero personalData={personalData} />
+  
+  {/* Fondo animado solo hasta About */}
+  <AnimatedBackground />
   
   {/* About: inyectar datos como props */}
   <About personalData={personalData} />
   
-  {/* Projects: inyectar datos como props */}
-  <Projects experience={personalData.experience} socialData={personalData.social} />
+  {/* Secciones siguientes con fondo rosa suave */}
+  <div class="sections-after-about">
+    {/* Projects: inyectar datos como props */}
+    <Projects experience={personalData.experience} socialData={personalData.social} />
+  </div>
 </Layout>
+
+<style>
+  /* Fondo rosa suave para las secciones después del About */
+  .sections-after-about {
+    position: relative;
+    background: linear-gradient(
+      to bottom,
+      rgba(180, 100, 130, 0.08) 0%,
+      rgba(160, 90, 120, 0.12) 20%,
+      rgba(140, 80, 110, 0.15) 50%,
+      rgba(120, 70, 100, 0.12) 80%,
+      rgba(100, 60, 90, 0.08) 100%
+    );
+    z-index: 1;
+  }
+</style>

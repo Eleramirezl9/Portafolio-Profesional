@@ -15,10 +15,10 @@
   --color-text-secondary: #b4b9d1;    /* Texto secundario */
   --color-text-muted: #6b7280;        /* Texto desactivado */
 
-  /* Acentos - Azul Tech */
-  --color-accent-primary: #00d4ff;    /* Azul cyan brillante */
-  --color-accent-secondary: #0066cc;  /* Azul profundo */
-  --color-accent-hover: #00b8e6;      /* Hover state */
+  /* Acentos - Celeste Suave que combina con rosa */
+  --color-accent-primary: #7dd3fc;    /* Celeste suave */
+  --color-accent-secondary: #5ba4cf;  /* Celeste oscuro */
+  --color-accent-hover: #a5e0fc;      /* Hover state */
 
   /* Estados */
   --color-success: #10b981;           /* Verde éxito */
@@ -26,7 +26,7 @@
   --color-error: #ef4444;             /* Rojo error */
 
   /* Gradientes */
-  --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #0066cc 100%);
+  --gradient-primary: linear-gradient(135deg, #7dd3fc 0%, #5ba4cf 100%);
   --gradient-secondary: linear-gradient(135deg, #1f2544 0%, #0a0e27 100%);
   --gradient-accent: linear-gradient(90deg, #00d4ff, #00ffff);
 
