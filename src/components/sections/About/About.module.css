@@ -1,0 +1,280 @@
+/**
+ * ABOUT SECTION STYLES - Módulo CSS
+ * 
+ * Estilos COMPLETAMENTE separados de About.astro
+ * Aislados y sin conflictos CSS
+ */
+
+.about {
+  position: relative;
+  background: var(--color-bg-primary);
+}
+
+/* About Content Grid */
+.aboutContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+/* Bio Section - Left Column */
+.aboutBio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.bioTitle {
+  color: var(--color-accent-primary);
+  font-size: var(--text-2xl);
+}
+
+.bioText {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* Philosophy Quote */
+.philosophy {
+  position: relative;
+  padding: var(--space-6);
+  background: var(--overlay-light);
+  border-left: 4px solid var(--color-accent-primary);
+  border-radius: var(--radius-md);
+}
+
+.quoteIcon {
+  color: var(--color-accent-primary);
+  opacity: 0.3;
+  margin-bottom: var(--space-3);
+}
+
+.philosophyText {
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* Education Content */
+.educationContent {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.educationIcon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--color-accent-primary);
+}
+
+.educationInfo {
+  flex: 1;
+}
+
+.educationTitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+}
+
+.educationUniversity {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+/* Availability Status */
+.availability {
+  padding: var(--space-4);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-md);
+}
+
+.availabilityStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.statusIndicator {
+  width: 12px;
+  height: 12px;
+  background: var(--color-success);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.statusText {
+  font-weight: var(--font-semibold);
+  color: var(--color-success);
+}
+
+.availabilityDetails {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Stats Section - Right Column */
+.aboutStats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.statCard {
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.statNumber {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.statLabel {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Achievements */
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.achievementsTitle {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-xl);
+}
+
+.achievementsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.achievementItem {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.achievementIcon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--color-accent-primary);
+}
+
+.achievementContent {
+  flex: 1;
+}
+
+.achievementTitle {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-1);
+}
+
+.achievementDescription {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Languages */
+.languages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.languagesTitle {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-xl);
+}
+
+.languagesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.languageItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.languageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.languageName {
+  font-weight: var(--font-semibold);
+}
+
+.languageNote {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .aboutContent {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statNumber {
+    font-size: var(--text-4xl);
+  }
+
+  .bioTitle {
+    font-size: var(--text-xl);
+  }
+
+  .statsGrid {
+    gap: var(--space-3);
+  }
+}

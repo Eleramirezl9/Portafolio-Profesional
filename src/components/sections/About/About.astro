@@ -1,0 +1,163 @@
+---
+/**
+ * ABOUT SECTION - Refactorizado
+ * 
+ * Sigue SOLID Principles:
+ * - Single Responsibility: solo rendering
+ * - Dependency Inversion: recibe datos como props
+ * 
+ * Props:
+ * - personalData: PersonalData (inyectado desde el padre)
+ */
+
+import type { PersonalData } from '@data/types';
+import SectionHeader from '@components/shared/SectionHeader.astro';
+import Badge from '@components/ui/Badge.astro';
+import Card from '@components/ui/Card.astro';
+import { SECTION_DESCRIPTIONS } from '@data/constants';
+import styles from './About.module.css';
+
+interface Props {
+  personalData: PersonalData;
+}
+
+const { personalData } = Astro.props;
+
+// Calcular total de tecnologías
+const totalTechs = Object.values(personalData.skills).reduce((acc, arr) => acc + arr.length, 0);
+const totalProjects = personalData.experience.length;
+---
+
+<section id="about" class={styles.about}>
+  <div class="container">
+    {/* Section Header */}
+    <SectionHeader 
+      label="Conóceme"
+      title="Sobre Mí"
+      description={SECTION_DESCRIPTIONS.ABOUT}
+    />
+
+    <div class={styles.aboutContent}>
+      {/* Bio - Left Column */}
+      <div class={styles.aboutBio}>
+        <h3 class={styles.bioTitle}>
+          {personalData.title}
+        </h3>
+        <p class={styles.bioText}>
+          {personalData.bio}
+        </p>
+
+        {/* Philosophy */}
+        <div class={styles.philosophy}>
+          <svg class={styles.quoteIcon} width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+          </svg>
+          <p class={styles.philosophyText}>
+            {personalData.philosophy}
+          </p>
+        </div>
+
+        {/* Education Card */}
+        <Card variant="default">
+          <div class={styles.educationContent}>
+            <div class={styles.educationIcon}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <div class={styles.educationInfo}>
+              <h4 class={styles.educationTitle}>{personalData.degree}</h4>
+              <p class={styles.educationUniversity}>{personalData.university}</p>
+              <Badge variant="success">{personalData.degreeStatus}</Badge>
+            </div>
+          </div>
+        </Card>
+
+        {/* Availability */}
+        <div class={styles.availability}>
+          <div class={styles.availabilityStatus}>
+            <span class={styles.statusIndicator}></span>
+            <span class={styles.statusText}>{personalData.availability.status}</span>
+          </div>
+          <p class={styles.availabilityDetails}>
+            {personalData.availability.type} · {personalData.availability.position}
+          </p>
+        </div>
+      </div>
+
+      {/* Stats & Achievements - Right Column */}
+      <div class={styles.aboutStats}>
+        {/* Key Stats Grid */}
+        <div class={styles.statsGrid}>
+          <Card variant="glow">
+            <div class={styles.statCard}>
+              <div class={`${styles.statNumber} text-gradient`}>5+</div>
+              <div class={styles.statLabel}>Años de Formación</div>
+            </div>
+          </Card>
+          <Card variant="glow">
+            <div class={styles.statCard}>
+              <div class={`${styles.statNumber} text-gradient`}>{totalTechs}+</div>
+              <div class={styles.statLabel}>Tecnologías</div>
+            </div>
+          </Card>
+          <Card variant="glow">
+            <div class={styles.statCard}>
+              <div class={`${styles.statNumber} text-gradient`}>{totalProjects}+</div>
+              <div class={styles.statLabel}>Proyectos</div>
+            </div>
+          </Card>
+          <Card variant="glow">
+            <div class={styles.statCard}>
+              <div class={`${styles.statNumber} text-gradient`}>100%</div>
+              <div class={styles.statLabel}>Calidad</div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Achievements */}
+        <Card variant="default">
+          <div class={styles.achievements}>
+            <h4 class={styles.achievementsTitle}>Logros Destacados</h4>
+            <div class={styles.achievementsList}>
+              {personalData.achievements.map(achievement => (
+                <div class={styles.achievementItem}>
+                  <div class={styles.achievementIcon}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                    </svg>
+                  </div>
+                  <div class={styles.achievementContent}>
+                    <h5 class={styles.achievementTitle}>{achievement.title}</h5>
+                    <p class={styles.achievementDescription}>{achievement.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+
+        {/* Languages */}
+        <Card variant="default">
+          <div class={styles.languages}>
+            <h4 class={styles.languagesTitle}>Idiomas</h4>
+            <div class={styles.languagesList}>
+              {personalData.languages.map(lang => (
+                <div class={styles.languageItem}>
+                  <div class={styles.languageHeader}>
+                    <span class={styles.languageName}>{lang.name}</span>
+                    <Badge variant="primary">{lang.level}</Badge>
+                  </div>
+                  {lang.note && (
+                    <p class={styles.languageNote}>{lang.note}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</section>
