@@ -1,0 +1,32 @@
+---
+/**
+ * BADGE COMPONENT - UI Atómico
+ * 
+ * Componente reutilizable de badge/etiqueta
+ * Sigue Interface Segregation Principle (SOLID)
+ * 
+ * Props:
+ * - variant: 'primary' | 'success' | 'warning' | 'info'
+ * - children: contenido del badge
+ */
+
+import type { BadgeProps } from '@data/types';
+import styles from './Badge.module.css';
+
+interface Props extends BadgeProps {}
+
+const {
+  variant = 'primary',
+  children,
+} = Astro.props;
+
+const badgeClass = `${styles.badge} ${styles[`badge-${variant}`]}`;
+---
+
+<span class={badgeClass}>
+  <slot>{children}</slot>
+</span>
+
+<style>
+  /* Estos estilos se importarán del módulo CSS */
+</style>

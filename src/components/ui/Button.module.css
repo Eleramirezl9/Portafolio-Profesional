@@ -1,0 +1,109 @@
+/**
+ * BUTTON STYLES - Módulo CSS
+ * 
+ * Estilos aislados del componente Button
+ * Importado en Button.astro
+ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal) var(--ease-out);
+  cursor: pointer;
+  border: var(--border-width) solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Sizes */
+.btn-sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.btn-md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+}
+
+.btn-lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+/* Variants - Primary */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-md);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Variants - Secondary */
+.btn-secondary {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-accent-primary);
+}
+
+/* Variants - Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-accent-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--overlay-light);
+}
+
+/* Variants - Outline */
+.btn-outline {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-outline:hover {
+  background: var(--overlay-light);
+  border-color: var(--color-accent-primary);
+}
+
+/* Focus visible accessibility */
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}

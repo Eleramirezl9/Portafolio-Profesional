@@ -1,0 +1,26 @@
+---
+/**
+ * SECTION HEADER COMPONENT - Componente Compartido
+ * 
+ * Reutilizable en múltiples secciones (About, Projects, Skills)
+ * Mantiene consistencia visual y de estructura
+ * 
+ * Props:
+ * - label: etiqueta de la sección (ej: "Conóceme")
+ * - title: título principal de la sección
+ * - description: descripción o subtítulo
+ */
+
+import type { SectionHeaderProps } from '@data/types';
+import styles from './SectionHeader.module.css';
+
+interface Props extends SectionHeaderProps {}
+
+const { label, title, description } = Astro.props;
+---
+
+<div class={styles.sectionHeader}>
+  <span class={styles.label}>{label}</span>
+  <h2 class={styles.title}>{title}</h2>
+  <p class={styles.description}>{description}</p>
+</div>

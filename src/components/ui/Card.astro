@@ -1,0 +1,27 @@
+---
+/**
+ * CARD COMPONENT - UI Atómico
+ * 
+ * Componente reutilizable de card/tarjeta
+ * Sigue Interface Segregation Principle (SOLID)
+ * 
+ * Props:
+ * - variant: 'default' | 'glow' | 'outline'
+ * - children: contenido de la card
+ */
+
+import type { CardProps } from '@data/types';
+import styles from './Card.module.css';
+
+interface Props extends CardProps {}
+
+const {
+  variant = 'default',
+} = Astro.props;
+
+const cardClass = `${styles.card} ${styles[`card-${variant}`]}`;
+---
+
+<div class={cardClass}>
+  <slot />
+</div>

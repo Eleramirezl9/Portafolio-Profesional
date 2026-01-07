@@ -1,0 +1,140 @@
+---
+/**
+ * BUTTON COMPONENT - UI Atómico
+ * 
+ * Componente reutilizable de botón
+ * Sigue Interface Segregation Principle (SOLID)
+ * 
+ * Props:
+ * - href: URL (opcional, sin href = button, con href = link)
+ * - variant: 'primary' | 'secondary' | 'ghost' | 'outline'
+ * - size: 'sm' | 'md' | 'lg'
+ * - children: contenido del botón
+ * - target: '_blank' | '_self'
+ * - rel: relación del link
+ */
+
+import type { ButtonProps } from '@data/types';
+import styles from './Button.module.css';
+
+interface Props extends ButtonProps {}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  children,
+  ariaLabel,
+  target = '_self',
+  rel = 'noopener noreferrer',
+} = Astro.props;
+
+// Determinar si es link o button
+const isLink = !!href;
+const Tag = isLink ? 'a' : 'button';
+
+// Clases CSS
+const buttonClasses = `${styles.btn} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]}`;
+---
+
+<Tag
+  class={buttonClasses}
+  href={isLink ? href : undefined}
+  target={isLink ? target : undefined}
+  rel={isLink ? rel : undefined}
+  type={!isLink ? 'button' : undefined}
+  aria-label={ariaLabel}
+>
+  <slot />
+</Tag>
+
+<style>
+  /* Base button styles */
+  :global(.btn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal) var(--ease-out);
+    cursor: pointer;
+    border: var(--border-width) solid transparent;
+    text-decoration: none;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  /* Sizes */
+  :global(.btn-sm) {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  :global(.btn-md) {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
+  }
+
+  :global(.btn-lg) {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+  }
+
+  /* Variants */
+  :global(.btn-primary) {
+    background: var(--gradient-primary);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-glow-sm);
+  }
+
+  :global(.btn-primary:hover) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-md);
+  }
+
+  :global(.btn-primary:active) {
+    transform: translateY(0);
+  }
+
+  :global(.btn-secondary) {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border-color: var(--border-color);
+  }
+
+  :global(.btn-secondary:hover) {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-accent-primary);
+  }
+
+  :global(.btn-ghost) {
+    background: transparent;
+    color: var(--color-accent-primary);
+  }
+
+  :global(.btn-ghost:hover) {
+    background: var(--overlay-light);
+  }
+
+  :global(.btn-outline) {
+    background: transparent;
+    color: var(--color-text-primary);
+    border-color: var(--border-color);
+  }
+
+  :global(.btn-outline:hover) {
+    background: var(--overlay-light);
+    border-color: var(--color-accent-primary);
+  }
+
+  /* Focus visible accessibility */
+  :global(.btn:focus-visible) {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+  }
+</style>
