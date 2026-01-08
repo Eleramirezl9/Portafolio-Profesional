@@ -332,5 +332,10 @@
 
   .nav {
     gap: var(--space-4);
+    height: 60px; /* Header más pequeño en mobile */
+  }
+
+  .mobileMenu {
+    top: 60px; /* Ajustar posición del menú mobile */
   }
 }

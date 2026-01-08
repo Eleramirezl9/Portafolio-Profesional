@@ -15,10 +15,10 @@
   --color-text-secondary: #b4b9d1;    /* Texto secundario */
   --color-text-muted: #6b7280;        /* Texto desactivado */
 
-  /* Acentos - Celeste Suave que combina con rosa */
-  --color-accent-primary: #7dd3fc;    /* Celeste suave */
-  --color-accent-secondary: #5ba4cf;  /* Celeste oscuro */
-  --color-accent-hover: #a5e0fc;      /* Hover state */
+  /* Acentos - Púrpura Masculino/Únix */
+  --color-accent-primary: #8b5cf6;    /* Púrpura violeta */
+  --color-accent-secondary: #7c3aed;  /* Púrpura oscuro */
+  --color-accent-hover: #a78bfa;      /* Hover state */
 
   /* Estados */
   --color-success: #10b981;           /* Verde éxito */
@@ -26,9 +26,9 @@
   --color-error: #ef4444;             /* Rojo error */
 
   /* Gradientes */
-  --gradient-primary: linear-gradient(135deg, #7dd3fc 0%, #5ba4cf 100%);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   --gradient-secondary: linear-gradient(135deg, #1f2544 0%, #0a0e27 100%);
-  --gradient-accent: linear-gradient(90deg, #00d4ff, #00ffff);
+  --gradient-accent: linear-gradient(90deg, #8b5cf6, #a78bfa);
 
   /* Overlay */
   --overlay-dark: rgba(10, 14, 39, 0.9);
@@ -102,9 +102,9 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
   /* Sombras de glow (para efectos) */
-  --shadow-glow-sm: 0 0 10px rgba(0, 212, 255, 0.3);
-  --shadow-glow-md: 0 0 20px rgba(0, 212, 255, 0.4);
-  --shadow-glow-lg: 0 0 30px rgba(0, 212, 255, 0.5);
+  --shadow-glow-sm: 0 0 10px rgba(139, 92, 246, 0.3);
+  --shadow-glow-md: 0 0 20px rgba(139, 92, 246, 0.4);
+  --shadow-glow-lg: 0 0 30px rgba(139, 92, 246, 0.5);
 
 
   /* ============= TRANSICIONES Y ANIMACIONES ============= */
