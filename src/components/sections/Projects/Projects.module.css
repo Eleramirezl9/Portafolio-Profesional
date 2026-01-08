@@ -7,7 +7,7 @@
 
 .projects {
   position: relative;
-  padding-top: 100px; /* Espacio desde el header fixed */
+  padding-top: 50px; /* Espacio desde el header fixed */
   padding-bottom: var(--space-24);
   background: linear-gradient(
     180deg,
@@ -37,7 +37,7 @@
 .projectsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: var(--space-8);
+  gap: var(--space-12); /* Más espacio entre cards */
   margin-bottom: var(--space-16);
 }
 

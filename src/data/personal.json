@@ -199,7 +199,7 @@
       }
     },
     {
-      "title": "CRM Multi-Sucursal Empresarial",
+      "title": "ERP Multi-Sucursal Empresarial",
       "period": "Diciembre 2023 - Presente",
       "description": "Sistema ERP completo para administración empresarial con múltiples módulos. Implementa arquitectura hexagonal con dominio bien modelado y testing robusto.",
       "technologies": ["Next.js", "Node.js", "React", "PostgreSQL", "Docker"],
