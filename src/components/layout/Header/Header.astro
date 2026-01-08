@@ -65,59 +65,89 @@ const { navItems } = Astro.props;
 </header>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuBtn = document.querySelector('[class*="mobileMenuBtn"]')?.closest('button');
-  const mobileMenu = document.querySelector('[class*="mobileMenu"]:not([class*="mobileMenuBtn"])');
-  const mobileNavLinks = document.querySelectorAll('[class*="mobileNavLink"]:not([class*="mobileCta"])');
+  (function() {
+    function initMobileMenu() {
+      var mobileMenuBtn = document.querySelector('button[class*="mobileMenuBtn"]');
+      var mobileMenu = document.querySelector('div[class*="mobileMenu"]');
+      var header = document.querySelector('header');
 
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenuBtn.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-    });
+      if (!mobileMenuBtn || !mobileMenu) return;
 
-    // Close menu when clicking a link
-    mobileNavLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        mobileMenu.classList.remove('open');
+      var isMenuOpen = false;
+
+      // Toggle menu
+      mobileMenuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        isMenuOpen = !isMenuOpen;
+        mobileMenuBtn.setAttribute('data-open', isMenuOpen);
+        mobileMenu.setAttribute('data-open', isMenuOpen);
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
       });
-    });
-  }
 
-  // Scroll effect
-  const header = document.querySelector('header');
-  let lastScroll = 0;
-
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 50) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
-
-    lastScroll = currentScroll;
-  });
-
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(
-        (e.currentTarget as HTMLAnchorElement).getAttribute('href') || ''
-      );
-      if (target) {
-        const headerOffset = 80;
-        const elementPosition = target.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
+      // Close menu when clicking a link
+      var links = mobileMenu.querySelectorAll('a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          isMenuOpen = false;
+          mobileMenuBtn.removeAttribute('data-open');
+          mobileMenu.removeAttribute('data-open');
+          document.body.style.overflow = '';
         });
       }
-    });
-  });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (isMenuOpen) {
+          var target = e.target;
+          if (mobileMenu !== target && !mobileMenu.contains(target) &&
+              mobileMenuBtn !== target && !mobileMenuBtn.contains(target)) {
+            isMenuOpen = false;
+            mobileMenuBtn.removeAttribute('data-open');
+            mobileMenu.removeAttribute('data-open');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+
+      // Scroll effect
+      var lastScroll = 0;
+      window.addEventListener('scroll', function() {
+        var currentScroll = window.pageYOffset;
+        if (header) {
+          if (currentScroll > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+        lastScroll = currentScroll;
+      });
+
+      // Smooth scroll for anchor links
+      var anchors = document.querySelectorAll('a[href^="#"]');
+      for (var j = 0; j < anchors.length; j++) {
+        anchors[j].addEventListener('click', function(e) {
+          e.preventDefault();
+          var href = this.getAttribute('href');
+          if (href) {
+            var target = document.querySelector(href);
+            if (target) {
+              var headerOffset = 80;
+              var elementPosition = target.getBoundingClientRect().top;
+              var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+              window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+          }
+        });
+      }
+    }
+
+    document.addEventListener('astro:page-load', initMobileMenu);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+      initMobileMenu();
+    }
+  })();
 </script>
