@@ -33,11 +33,11 @@
   pointer-events: none;
 }
 
-/* Projects Grid */
+/* Projects Grid - Compacto */
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: var(--space-12); /* Más espacio entre cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
   margin-bottom: var(--space-16);
 }
 

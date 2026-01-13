@@ -25,6 +25,16 @@ const { project, index = 0 } = Astro.props;
 <div class={styles.projectCard}>
   {/* Project Header */}
   <div class={styles.projectHeader}>
+    {project.image && (
+      <div class={styles.projectImageContainer}>
+        <img
+          src={project.image}
+          alt={`Vista previa de ${project.title}`}
+          class={styles.projectImage}
+          loading="lazy"
+        />
+      </div>
+    )}
     <div class={styles.projectTitleContainer}>
       <h3 class={styles.projectTitle}>{project.title}</h3>
       <span class={styles.projectPeriod}>{project.period}</span>

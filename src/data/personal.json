@@ -4,7 +4,6 @@
   "subtitle": "Especialista en Clean Architecture & Desarrollo Escalable",
   "location": "Ciudad de Guatemala, Guatemala",
   "email": "eddyramirez150@gmail.com",
-  "phone": "+502 XXXX-XXXX",
   "university": "Universidad Mariano Gálvez",
   "degree": "Ingeniería en Sistemas",
   "degreeStatus": "En curso (2019 - 2024)",
@@ -171,6 +170,7 @@
       "period": "2024",
       "description": "Sistema de gestión documental empresarial para administración de archivos y trámites. Proyecto de graduación que implementa arquitectura escalable con separación clara de responsabilidades.",
       "technologies": ["Next.js", "Node.js", "PostgreSQL", "TypeScript", "Docker"],
+      "image": "/gestorDocumental.PNG",
       "highlights": [
         "Gestión completa de documentos y archivos",
         "Sistema de permisos y roles granular",
@@ -187,6 +187,7 @@
       "period": "2024",
       "description": "Plataforma de venta online con carrito de compras, gestión de inventario y procesamiento de pagos. Arquitectura modular con Clean Architecture.",
       "technologies": ["Next.js 14", "Node.js", "PostgreSQL", "Stripe", "Redis"],
+      "image": "/TiendaIma.PNG",
       "highlights": [
         "Carrito de compras en tiempo real",
         "Sistema de pagos integrado (Stripe)",
@@ -203,6 +204,7 @@
       "period": "Diciembre 2023 - Presente",
       "description": "Sistema ERP completo para administración empresarial con múltiples módulos. Implementa arquitectura hexagonal con dominio bien modelado y testing robusto.",
       "technologies": ["Next.js", "Node.js", "React", "PostgreSQL", "Docker"],
+      "image": "/ERPimagen.PNG",
       "highlights": [
         "Módulos de contabilidad, inventario y facturación",
         "Generación de reportes PDF y Excel en tiempo real",
@@ -219,6 +221,7 @@
       "period": "Mayo 2023 - Julio 2023",
       "description": "Red social con feed en tiempo real, sistema de amigos y mensajería instantánea. Arquitectura escalable con actualizaciones en tiempo real vía WebSockets.",
       "technologies": ["Next.js", "Socket.io", "MongoDB", "Cloudinary", "JWT"],
+      "image": "/redsocial.PNG",
       "highlights": [
         "Sistema de amigos, mensajes y notificaciones",
         "Subida y procesamiento de imágenes optimizado",

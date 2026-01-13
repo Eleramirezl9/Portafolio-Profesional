@@ -124,7 +124,6 @@ export const Z_INDEX = {
 export const EXTERNAL_URLS = {
   GITHUB: 'https://github.com',
   LINKEDIN: 'https://linkedin.com',
-  TWITTER: 'https://twitter.com',
 } as const;
 
 // ============= SOCIAL MEDIA =============
@@ -132,5 +131,4 @@ export const SOCIAL_PLATFORMS = {
   GITHUB: 'GitHub',
   LINKEDIN: 'LinkedIn',
   EMAIL: 'Email',
-  TWITTER: 'Twitter',
 } as const;

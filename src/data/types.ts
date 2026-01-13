@@ -42,6 +42,7 @@ export interface Experience {
   description: string;
   technologies: string[];
   highlights: string[];
+  image?: string;
   links?: {
     demo?: string;
     github?: string;
