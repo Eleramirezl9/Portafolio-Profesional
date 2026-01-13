@@ -1,9 +1,11 @@
 /**
  * TIPOS TYPESCRIPT - Portafolio
- * 
+ *
  * Define las interfaces para toda la aplicación
  * Sigue Interface Segregation Principle (SOLID)
  */
+
+import type { ImageMetadata } from 'astro';
 
 // ============= SOCIAL LINKS =============
 export interface SocialLinks {
@@ -42,7 +44,7 @@ export interface Experience {
   description: string;
   technologies: string[];
   highlights: string[];
-  image?: string;
+  image?: ImageMetadata | string;
   links?: {
     demo?: string;
     github?: string;
