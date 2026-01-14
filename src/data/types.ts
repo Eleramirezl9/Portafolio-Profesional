@@ -11,6 +11,8 @@ export type { ImageMetadata } from 'astro';
 export interface SocialLinks {
   github: string;
   linkedin: string;
+  cv?: string;
+  portfolio?: string;
   website?: string;
 }
 

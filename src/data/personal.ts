@@ -39,6 +39,8 @@ export const personalData: PersonalData = {
   social: {
     linkedin: "https://www.linkedin.com/in/eddy-alexander-ramirez-lorenzana-196a47267",
     github: "https://github.com/Eleramirezl9",
+    cv: "https://drive.google.com/file/d/1g-rotC8MOBi0b30usogm4skFGGTspERm/view?usp=drive_link",
+    portfolio: "https://eddyramirez-portafolio.vercel.app",
     website: "https://eddyramirez150@gmail.com"
   },
 
