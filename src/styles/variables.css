@@ -137,6 +137,14 @@
   --breakpoint-2xl: 1536px;
 
 
+  /* ============= COLORES RGB PARA OPACITY ============= */
+  --color-accent-primary-rgb: 139, 92, 246;
+  --color-accent-secondary-rgb: 124, 58, 237;
+
+  /* ============= GLASSMORPHISM ============= */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
   /* ============= LAYOUT ============= */
   --container-max-width: 1200px;
   --container-padding: var(--space-4);

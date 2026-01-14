@@ -1,7 +1,7 @@
 ---
 /**
  * PÁGINA PRINCIPAL - Composition Root
- * 
+ *
  * Punto de entrada de la aplicación
  * Aquí se inyectan los datos en los componentes
  * Sigue Dependency Inversion Principle (SOLID)
@@ -13,6 +13,7 @@ import Hero from '@components/sections/Hero/Hero.astro';
 import AnimatedBackground from '@components/layout/AnimatedBackground/AnimatedBackground.astro';
 import About from '@components/sections/About/About.astro';
 import Projects from '@components/sections/Projects/Projects.astro';
+import Skills from '@components/sections/Skills/Skills.astro';
 
 // Inyección de dependencias: importar datos aquí
 import { personalData } from '@data/personal';
@@ -23,23 +24,30 @@ import { NAV_ITEMS } from '@data/constants';
   <Header navItems={NAV_ITEMS} />
   {/* Hero: inyectar datos como props */}
   <Hero personalData={personalData} />
-  
+
   {/* Fondo animado solo hasta About */}
   <AnimatedBackground />
-  
+
   {/* About: inyectar datos como props */}
   <About personalData={personalData} />
-  
-  {/* Secciones siguientes con fondo rosa suave */}
-  <div class="sections-after-about">
+
+  {/* Secciones con fondo suave */}
+  <div class="main-content">
     {/* Projects: inyectar datos como props */}
     <Projects experience={personalData.experience} socialData={personalData.social} />
+
+    {/* Skills Footer - Carrusel profesional al final */}
+    <footer class="skills-footer">
+      <div class="skills-footer-content">
+        <Skills skills={personalData.skills} />
+      </div>
+    </footer>
   </div>
 </Layout>
 
 <style>
-  /* Fondo rosa suave para las secciones después del About */
-  .sections-after-about {
+  /* Contenido principal con fondo suave */
+  .main-content {
     position: relative;
     background: linear-gradient(
       to bottom,
@@ -50,5 +58,19 @@ import { NAV_ITEMS } from '@data/constants';
       rgba(100, 60, 90, 0.08) 100%
     );
     z-index: 1;
+  }
+
+  /* Skills como footer profesional */
+  .skills-footer {
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba(21, 26, 51, 0.95) 20%);
+    margin-top: -1px;
+    padding-top: 4rem;
+  }
+
+  .skills-footer-content {
+    background: #151a33;
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    padding: 3rem 0 2rem;
   }
 </style>

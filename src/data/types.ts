@@ -5,7 +5,7 @@
  * Sigue Interface Segregation Principle (SOLID)
  */
 
-import type { ImageMetadata } from 'astro';
+export type { ImageMetadata } from 'astro';
 
 // ============= SOCIAL LINKS =============
 export interface SocialLinks {
@@ -26,6 +26,7 @@ export interface Skill {
   name: string;
   level: number; // 0-100
   category: 'runtime' | 'language' | 'framework' | 'styling' | 'state' | 'sql' | 'nosql' | 'cache' | 'orm' | 'vcs' | 'devops' | 'ci-cd' | 'testing' | 'api' | 'pattern' | 'methodology' | 'principles';
+  url?: string; // URL to official documentation
 }
 
 // ============= SKILLS COLLECTION =============

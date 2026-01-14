@@ -1,0 +1,562 @@
+---
+/**
+ * SKILLS SECTION - Premium Carousel
+ *
+ * Features:
+ * - Infinite scroll carousel
+ * - Dynamic gradients
+ * - Shine and glow effects
+ * - Dark mode support
+ *
+ * Props:
+ * - skills: SkillsCollection (all skill categories)
+ */
+
+import type { SkillsCollection } from '@data/types';
+import { SECTION_DESCRIPTIONS } from '@data/constants';
+
+// Import all skill icons
+import NodejsIcon from '@assets/icons/Nodejs.astro';
+import TypescriptIcon from '@assets/icons/Typescript.astro';
+import ExpressIcon from '@assets/icons/Express.astro';
+import NestjsIcon from '@assets/icons/Nestjs.astro';
+import PythonIcon from '@assets/icons/Python.astro';
+import JavaIcon from '@assets/icons/Java.astro';
+import ReactIcon from '@assets/icons/React.astro';
+import NextjsIcon from '@assets/icons/Nextjs.astro';
+import VuejsIcon from '@assets/icons/Vuejs.astro';
+import TailwindIcon from '@assets/icons/Tailwind.astro';
+import ReduxIcon from '@assets/icons/Redux.astro';
+import PostgresqlIcon from '@assets/icons/Postgresql.astro';
+import MongodbIcon from '@assets/icons/Mongodb.astro';
+import MysqlIcon from '@assets/icons/Mysql.astro';
+import RedisIcon from '@assets/icons/Redis.astro';
+import PrismaIcon from '@assets/icons/Prisma.astro';
+import GitIcon from '@assets/icons/Git.astro';
+import DockerIcon from '@assets/icons/Docker.astro';
+import GithubactionsIcon from '@assets/icons/Githubactions.astro';
+import JestIcon from '@assets/icons/Jest.astro';
+
+interface Props {
+  skills: SkillsCollection;
+}
+
+const { skills } = Astro.props;
+
+// Create a flat array of all skills with their icons for the carousel
+const allSkillsWithIcons = [
+  // Backend
+  { ...skills.backend[0], icon: NodejsIcon },
+  { ...skills.backend[1], icon: TypescriptIcon },
+  { ...skills.backend[2], icon: ExpressIcon },
+  { ...skills.backend[3], icon: NestjsIcon },
+  { ...skills.backend[4], icon: PythonIcon },
+  { ...skills.backend[5], icon: JavaIcon },
+  // Frontend
+  { ...skills.frontend[0], icon: ReactIcon },
+  { ...skills.frontend[1], icon: NextjsIcon },
+  { ...skills.frontend[2], icon: VuejsIcon },
+  { ...skills.frontend[3], icon: TailwindIcon },
+  { ...skills.frontend[4], icon: ReduxIcon },
+  // Database
+  { ...skills.database[0], icon: PostgresqlIcon },
+  { ...skills.database[1], icon: MongodbIcon },
+  { ...skills.database[2], icon: MysqlIcon },
+  { ...skills.database[3], icon: RedisIcon },
+  { ...skills.database[4], icon: PrismaIcon },
+  // Tools
+  { ...skills.tools[0], icon: GitIcon },
+  { ...skills.tools[1], icon: DockerIcon },
+  { ...skills.tools[2], icon: GithubactionsIcon },
+  { ...skills.tools[3], icon: JestIcon },
+];
+
+// Duplicate skills for seamless infinite scroll (6x for continuous movement)
+const carouselSkills = [...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons];
+
+// Helper function to determine level dots
+function getLevelDots(level: number): number[] {
+  return [1, 2, 3, 4, 5].map(i => i <= Math.ceil(level / 20) ? 1 : 0);
+}
+---
+
+<section id="skills" class="skills-footer-section">
+  <div class="skills-container">
+    {/* Section Header */}
+    <div class="skills-header">
+      <span class="skills-label">Stack Tecnológico</span>
+      <h2 class="skills-title">Habilidades</h2>
+      <div class="skills-accent"></div>
+    </div>
+
+    {/* Premium Carousel - Infinite Scroll */}
+    <div class="carousel-container">
+      <div class="carousel-track" id="skills-carousel">
+        {carouselSkills.map((skill) => {
+          const levelDots = getLevelDots(skill.level);
+          const IconComponent = skill.icon;
+
+          return skill.url ? (
+            <a href={skill.url} target="_blank" rel="noopener noreferrer" class="skill-card" title={`${skill.name} - ${skill.level}%`}>
+              {/* Icon wrapper with gradient */}
+              <div class="skill-icon-wrapper">
+                <div class="skill-icon">
+                  <IconComponent />
+                </div>
+              </div>
+
+              {/* Skill name */}
+              <span class="skill-name">{skill.name}</span>
+
+              {/* External link indicator */}
+              <svg class="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+
+              {/* Level indicator */}
+              <div class="skill-level">
+                {levelDots.map((active) => (
+                  <div class={`skill-level-dot ${active ? 'active' : ''}`}></div>
+                ))}
+              </div>
+            </a>
+          ) : (
+            <div class="skill-card" title={`${skill.name} - ${skill.level}%`}>
+              {/* Icon wrapper with gradient */}
+              <div class="skill-icon-wrapper">
+                <div class="skill-icon">
+                  <IconComponent />
+                </div>
+              </div>
+
+              {/* Skill name */}
+              <span class="skill-name">{skill.name}</span>
+
+              {/* Level indicator */}
+              <div class="skill-level">
+                {levelDots.map((active) => (
+                  <div class={`skill-level-dot ${active ? 'active' : ''}`}></div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Infinite Carousel Animation Script
+  (function() {
+    const carousel = document.getElementById('skills-carousel');
+    const container = document.querySelector('.carousel-container');
+    if (!carousel || !container) return;
+
+    let position = 0;
+    let speed = 0.5; // pixels per frame
+    let isPaused = false;
+    let animationId = null;
+
+    function animate() {
+      if (!isPaused) {
+        position -= speed;
+        const maxScroll = carousel.scrollWidth / 6; // 6 sets of items
+        if (Math.abs(position) >= maxScroll) {
+          position = 0;
+        }
+        carousel.style.transform = `translate3d(${position}px, 0, 0)`;
+      }
+      animationId = requestAnimationFrame(animate);
+    }
+
+    // Start animation
+    animate();
+
+    // Pause on mouse hover
+    container.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isPaused = false;
+    });
+
+    // Pause on click and resume after 2 seconds (mouse)
+    const cards = container.querySelectorAll('.skill-card');
+    cards.forEach(card => {
+      const pauseAndResume = () => {
+        isPaused = true;
+        // Resume after 2 seconds
+        setTimeout(() => {
+          isPaused = false;
+        }, 2000);
+      };
+
+      // Mouse click
+      card.addEventListener('click', pauseAndResume);
+
+      // Touch support for mobile
+      card.addEventListener('touchstart', (e) => {
+        // Small delay to distinguish tap from swipe
+        card._touchTimer = setTimeout(() => {
+          pauseAndResume();
+        }, 150);
+      });
+
+      card.addEventListener('touchend', () => {
+        // Cancel the timer if it was a quick tap that opened the link
+        if (card._touchTimer) {
+          clearTimeout(card._touchTimer);
+        }
+      });
+
+      card.addEventListener('touchmove', () => {
+        // Cancel timer if swiping
+        if (card._touchTimer) {
+          clearTimeout(card._touchTimer);
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Section styles - Footer look */
+  .skills-footer-section {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .skills-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Minimalist header for footer */
+  .skills-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .skills-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(139, 92, 246, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  .skills-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .skills-accent {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #8b5cf6, #8b5cf6, transparent);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* Carousel container */
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+
+  .carousel-container::before,
+  .carousel-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .carousel-container::before {
+    left: 0;
+    background: linear-gradient(to right, transparent, #151a33);
+  }
+
+  .carousel-container::after {
+    right: 0;
+    background: linear-gradient(to left, transparent, #151a33);
+  }
+
+  /* Carousel track */
+  .carousel-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    will-change: transform;
+  }
+
+  /* Individual skill card */
+  .skill-card {
+    position: relative;
+    flex-shrink: 0;
+    width: 140px;
+    height: 170px;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* Border gradient effect */
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.5) 0%,
+      rgba(139, 92, 246, 0.2) 50%,
+      rgba(124, 58, 237, 0.5) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .skill-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Shine effect */
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 100%
+    );
+    transition: left 0.5s ease;
+  }
+
+  .skill-card:hover::after {
+    left: 100%;
+  }
+
+  /* Hover state */
+  .skill-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.15);
+    border-color: #8b5cf6;
+  }
+
+  /* Skill icon container */
+  .skill-icon-wrapper {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 0.625rem;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-card:hover .skill-icon-wrapper {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+  }
+
+  .skill-icon-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .skill-card:hover .skill-icon-wrapper::after {
+    opacity: 1;
+  }
+
+  .skill-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill-icon :global(svg) {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Skill name */
+  .skill-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    transition: color 0.2s ease;
+  }
+
+  .skill-card:hover .skill-name {
+    color: #8b5cf6;
+  }
+
+  /* External link icon */
+  .external-link-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 12px;
+    height: 12px;
+    color: rgba(139, 92, 246, 0.5);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+  }
+
+  .skill-card:hover .external-link-icon {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Skill level indicator */
+  .skill-level {
+    display: flex;
+    gap: 4px;
+    margin-top: auto;
+  }
+
+  .skill-level-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .skill-level-dot.active {
+    background: #8b5cf6;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+
+  .skill-level-dot.active:nth-child(4),
+  .skill-level-dot.active:nth-child(5) {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .skill-card {
+      width: 120px;
+      height: 150px;
+    }
+
+    .skill-icon-wrapper {
+      width: 48px;
+      height: 48px;
+    }
+
+    .skill-icon :global(svg) {
+      width: 32px !important;
+      height: 32px !important;
+    }
+
+    .skill-name {
+      font-size: 0.7rem;
+    }
+
+    .carousel-container::before,
+    .carousel-container::after {
+      width: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .skill-card {
+      width: 100px;
+      height: 130px;
+      gap: 0.35rem;
+      padding: 0.5rem;
+    }
+
+    .skill-icon-wrapper {
+      width: 40px;
+      height: 40px;
+    }
+
+    .skill-icon :global(svg) {
+      width: 26px !important;
+      height: 26px !important;
+    }
+
+    .skill-name {
+      font-size: 0.65rem;
+    }
+
+    .carousel-container::before,
+    .carousel-container::after {
+      width: 40px;
+    }
+
+    .skills-header {
+      margin-bottom: 1rem;
+    }
+
+    .skills-title {
+      font-size: 1.25rem;
+    }
+
+    .skills-label {
+      font-size: 0.65rem;
+    }
+
+    .skills-accent {
+      width: 50px;
+      height: 2px;
+    }
+  }
+</style>

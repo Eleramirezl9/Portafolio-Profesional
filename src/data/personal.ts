@@ -49,145 +49,172 @@ export const personalData: PersonalData = {
       {
         name: "Node.js",
         level: 90,
-        category: "runtime"
+        category: "runtime",
+        url: "https://nodejs.org/docs/latest/"
       },
       {
         name: "TypeScript",
         level: 85,
-        category: "language"
+        category: "language",
+        url: "https://www.typescriptlang.org/docs/"
       },
       {
         name: "Express.js",
         level: 90,
-        category: "framework"
+        category: "framework",
+        url: "https://expressjs.com/"
       },
       {
         name: "NestJS",
         level: 80,
-        category: "framework"
+        category: "framework",
+        url: "https://docs.nestjs.com/"
       },
       {
         name: "Python",
         level: 70,
-        category: "language"
+        category: "language",
+        url: "https://docs.python.org/3/"
       },
       {
         name: "Java",
         level: 65,
-        category: "language"
+        category: "language",
+        url: "https://docs.oracle.com/en/java/"
       }
     ],
     frontend: [
       {
         name: "React",
         level: 90,
-        category: "framework"
+        category: "framework",
+        url: "https://react.dev/"
       },
       {
         name: "Next.js",
         level: 85,
-        category: "framework"
+        category: "framework",
+        url: "https://nextjs.org/docs"
       },
       {
         name: "Vue.js",
         level: 75,
-        category: "framework"
+        category: "framework",
+        url: "https://vuejs.org/guide/"
       },
       {
         name: "Tailwind CSS",
         level: 90,
-        category: "styling"
+        category: "styling",
+        url: "https://tailwindcss.com/docs"
       },
       {
         name: "Redux",
         level: 80,
-        category: "state"
+        category: "state",
+        url: "https://redux.js.org/"
       }
     ],
     database: [
       {
         name: "PostgreSQL",
         level: 85,
-        category: "sql"
+        category: "sql",
+        url: "https://www.postgresql.org/docs/"
       },
       {
         name: "MongoDB",
         level: 80,
-        category: "nosql"
+        category: "nosql",
+        url: "https://www.mongodb.com/docs/"
       },
       {
         name: "MySQL",
         level: 80,
-        category: "sql"
+        category: "sql",
+        url: "https://dev.mysql.com/doc/"
       },
       {
         name: "Redis",
         level: 70,
-        category: "cache"
+        category: "cache",
+        url: "https://redis.io/docs/"
       },
       {
         name: "Prisma",
         level: 85,
-        category: "orm"
+        category: "orm",
+        url: "https://www.prisma.io/docs/"
       }
     ],
     tools: [
       {
         name: "Git",
         level: 90,
-        category: "vcs"
+        category: "vcs",
+        url: "https://git-scm.com/doc"
       },
       {
         name: "Docker",
         level: 75,
-        category: "devops"
+        category: "devops",
+        url: "https://docs.docker.com/"
       },
       {
         name: "GitHub Actions",
         level: 70,
-        category: "ci-cd"
+        category: "ci-cd",
+        url: "https://docs.github.com/en/actions"
       },
       {
         name: "Jest",
         level: 80,
-        category: "testing"
+        category: "testing",
+        url: "https://jestjs.io/docs/getting-started"
       },
       {
         name: "Postman",
         level: 85,
-        category: "api"
+        category: "api",
+        url: "https://learning.postman.com/"
       }
     ],
     architecture: [
       {
         name: "Clean Architecture",
         level: 85,
-        category: "pattern"
+        category: "pattern",
+        url: "https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html"
       },
       {
         name: "Hexagonal Architecture",
         level: 80,
-        category: "pattern"
+        category: "pattern",
+        url: "https://alistair.cockburn.us/hexagonal-architecture/"
       },
       {
         name: "MVC",
         level: 90,
-        category: "pattern"
+        category: "pattern",
+        url: "https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller"
       },
       {
         name: "DDD",
         level: 75,
-        category: "pattern"
+        category: "pattern",
+        url: "https://domaindrivendesign.io/"
       },
       {
         name: "TDD",
         level: 80,
-        category: "methodology"
+        category: "methodology",
+        url: "https://testdriven.io/tdd-best-practices/"
       },
       {
         name: "SOLID Principles",
         level: 85,
-        category: "principles"
+        category: "principles",
+        url: "https://en.wikipedia.org/wiki/SOLID"
       }
     ]
   },
