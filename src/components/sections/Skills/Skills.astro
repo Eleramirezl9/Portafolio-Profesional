@@ -156,9 +156,18 @@ function getLevelDots(level: number): number[] {
     if (!carousel || !container) return;
 
     let position = 0;
-    let speed = 0.5; // pixels per frame
+    let speed = 0.5; // Base speed
     let isPaused = false;
     let animationId = null;
+
+    // Adjust speed based on screen size
+    function updateSpeed() {
+      if (window.innerWidth <= 768) {
+        speed = 0.3; // Slower on mobile
+      } else {
+        speed = 0.5; // Normal speed on desktop
+      }
+    }
 
     function animate() {
       if (!isPaused) {
@@ -172,8 +181,12 @@ function getLevelDots(level: number): number[] {
       animationId = requestAnimationFrame(animate);
     }
 
-    // Start animation
+    // Initialize speed and start animation
+    updateSpeed();
     animate();
+
+    // Update speed on resize
+    window.addEventListener('resize', updateSpeed);
 
     // Pause on mouse hover
     container.addEventListener('mouseenter', () => {
