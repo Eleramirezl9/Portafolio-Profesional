@@ -94,20 +94,7 @@
   display: flex;
   gap: var(--space-6);
   width: max-content;
-  animation: scrollLeft 40s linear infinite;
-}
-
-#skills .carousel-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  will-change: transform;
 }
 
 /* Individual skill card */

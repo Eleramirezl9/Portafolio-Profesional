@@ -1,16 +1,17 @@
 ---
 /**
- * SKILLS SECTION - Premium Carousel
- *
- * Features:
- * - Infinite scroll carousel
- * - Dynamic gradients
- * - Shine and glow effects
- * - Dark mode support
- *
- * Props:
- * - skills: SkillsCollection (all skill categories)
- */
+  * SKILLS SECTION - Premium Carousel
+  *
+  * Features:
+  * - Infinite scroll carousel with CSS Animation (performance optimized)
+  * - GPU accelerated animations
+  * - Dynamic gradients
+  * - Shine and glow effects
+  * - Dark mode support
+  *
+  * Props:
+  * - skills: SkillsCollection (all skill categories)
+  */
 
 import type { SkillsCollection } from '@data/types';
 import { SECTION_DESCRIPTIONS } from '@data/constants';
@@ -71,8 +72,8 @@ const allSkillsWithIcons = [
   { ...skills.tools[3], icon: JestIcon },
 ];
 
-// Duplicate skills for seamless infinite scroll (6x for continuous movement)
-const carouselSkills = [...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons];
+// Duplicate skills for seamless infinite scroll (3x for reliable looping)
+const carouselSkills = [...allSkillsWithIcons, ...allSkillsWithIcons, ...allSkillsWithIcons];
 
 // Helper function to determine level dots
 function getLevelDots(level: number): number[] {
@@ -89,7 +90,7 @@ function getLevelDots(level: number): number[] {
       <div class="skills-accent"></div>
     </div>
 
-    {/* Premium Carousel - Infinite Scroll */}
+    {/* Premium Carousel - CSS Animation (GPU Accelerated) */}
     <div class="carousel-container">
       <div class="carousel-track" id="skills-carousel">
         {carouselSkills.map((skill) => {
@@ -149,91 +150,24 @@ function getLevelDots(level: number): number[] {
 </section>
 
 <script>
-  // Infinite Carousel Animation Script
-  (function() {
-    const carousel = document.getElementById('skills-carousel');
-    const container = document.querySelector('.carousel-container');
-    if (!carousel || !container) return;
-
+  // Simple carousel animation
+  const carousel = document.getElementById('skills-carousel');
+  if (carousel) {
     let position = 0;
-    let speed = 0.5; // Base speed
-    let isPaused = false;
-    let animationId = null;
-
-    // Adjust speed based on screen size
-    function updateSpeed() {
-      if (window.innerWidth <= 768) {
-        speed = 0.3; // Slower on mobile
-      } else {
-        speed = 0.5; // Normal speed on desktop
-      }
-    }
-
+    const speed = 0.35; // Velocidad un poco más rápida en desktop
+    
     function animate() {
-      if (!isPaused) {
-        position -= speed;
-        const maxScroll = carousel.scrollWidth / 6; // 6 sets of items
-        if (Math.abs(position) >= maxScroll) {
-          position = 0;
-        }
-        carousel.style.transform = `translate3d(${position}px, 0, 0)`;
+      position -= speed;
+      const maxScroll = carousel.scrollWidth / 3; // 3 sets de items
+      if (Math.abs(position) >= maxScroll) {
+        position = 0;
       }
-      animationId = requestAnimationFrame(animate);
+      carousel.style.transform = `translate3d(${position}px, 0, 0)`;
+      requestAnimationFrame(animate);
     }
-
-    // Initialize speed and start animation
-    updateSpeed();
+    
     animate();
-
-    // Update speed on resize
-    window.addEventListener('resize', updateSpeed);
-
-    // Pause on mouse hover
-    container.addEventListener('mouseenter', () => {
-      isPaused = true;
-    });
-
-    container.addEventListener('mouseleave', () => {
-      isPaused = false;
-    });
-
-    // Pause on click and resume after 2 seconds (mouse)
-    const cards = container.querySelectorAll('.skill-card');
-    cards.forEach(card => {
-      const pauseAndResume = () => {
-        isPaused = true;
-        // Resume after 2 seconds
-        setTimeout(() => {
-          isPaused = false;
-        }, 2000);
-      };
-
-      // Mouse click
-      card.addEventListener('click', pauseAndResume);
-
-      // Touch support for mobile
-      card.addEventListener('touchstart', (e) => {
-        // Small delay to distinguish tap from swipe
-        card._touchTimer = setTimeout(() => {
-          pauseAndResume();
-        }, 150);
-      });
-
-      card.addEventListener('touchend', () => {
-        // Cancel the timer if it was a quick tap that opened the link
-        if (card._touchTimer) {
-          clearTimeout(card._touchTimer);
-        }
-      });
-
-      card.addEventListener('touchmove', () => {
-        // Cancel timer if swiping
-        if (card._touchTimer) {
-          clearTimeout(card._touchTimer);
-        }
-      });
-    });
-  })();
+  }
 </script>
 
 <style>
@@ -300,24 +234,12 @@ function getLevelDots(level: number): number[] {
     height: 100%;
     z-index: 2;
     pointer-events: none;
-  }
-
-  .carousel-container::before {
-    left: 0;
-    background: linear-gradient(to right, transparent, #151a33);
+    background: linear-gradient(to right, #151a33, transparent);
   }
 
   .carousel-container::after {
     right: 0;
-    background: linear-gradient(to left, transparent, #151a33);
-  }
-
-  /* Carousel track */
-  .carousel-track {
-    display: flex;
-    gap: 1.25rem;
-    width: max-content;
-    will-change: transform;
+    background: linear-gradient(to left, #151a33, transparent);
   }
 
   /* Individual skill card */
@@ -339,6 +261,7 @@ function getLevelDots(level: number): number[] {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     overflow: hidden;
+    text-decoration: none;
   }
 
   /* Border gradient effect */
