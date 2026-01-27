@@ -11,4 +11,5 @@
  * - About: import About from '@components/sections/About/About.astro'
  * - Projects: import Projects from '@components/sections/Projects/Projects.astro'
  * - ProjectCard: import ProjectCard from '@components/sections/Projects/ProjectCard.astro'
+ * - Contact: import Contact from '@components/sections/Contact/Contact.astro'
  */

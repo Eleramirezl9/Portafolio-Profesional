@@ -106,6 +106,30 @@ export interface NavItem {
   target?: '_blank' | '_self';
 }
 
+// ============= CONTACT & REVIEWS =============
+export interface ContactFormData {
+  email: string;
+  message: string;
+}
+
+export interface Review {
+  _id: string;
+  _type: 'review';
+  authorName: string; // Nombre o apodo (anónimo o visible)
+  authorEmail?: string; // No se muestra públicamente
+  message: string;
+  createdAt: string;
+  isAnonymous: boolean;
+  status: 'pending' | 'approved' | 'rejected'; // Para moderar reseñas
+}
+
+export interface ReviewInput {
+  authorName: string;
+  message: string;
+  email: string;
+  isAnonymous: boolean;
+}
+
 // ============= UI COMPONENT PROPS =============
 
 // Button Props

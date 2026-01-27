@@ -14,10 +14,39 @@ import AnimatedBackground from '@components/layout/AnimatedBackground/AnimatedBa
 import About from '@components/sections/About/About.astro';
 import Projects from '@components/sections/Projects/Projects.astro';
 import Skills from '@components/sections/Skills/Skills.astro';
+import Contact from '@components/sections/Contact/Contact.astro';
 
 // Inyección de dependencias: importar datos aquí
 import { personalData } from '@data/personal';
 import { NAV_ITEMS } from '@data/constants';
+import { sanityClient } from '@data/sanity.client';
+
+// Obtener reseñas aprobadas desde Sanity
+let reviews = [];
+try {
+  if (sanityClient) {
+    reviews = await sanityClient.fetch(
+      `*[_type == "review" && status == "approved"] | order(_createdAt desc) {
+        _id,
+        _type,
+        authorName,
+        message,
+        _createdAt,
+        isAnonymous,
+        status
+      }[0...10]`
+    );
+    
+    // Mapear _createdAt a createdAt para consistencia con el tipo
+    reviews = reviews.map((review: any) => ({
+      ...review,
+      createdAt: review._createdAt,
+    }));
+  }
+} catch (error) {
+  console.error('Error fetching reviews:', error);
+  reviews = [];
+}
 ---
 
 <Layout>
@@ -35,6 +64,9 @@ import { NAV_ITEMS } from '@data/constants';
   <div class="main-content">
     {/* Projects: inyectar datos como props */}
     <Projects experience={personalData.experience} socialData={personalData.social} />
+
+    {/* Contact & Reviews */}
+    <Contact initialReviews={reviews} email={personalData.email} />
 
     {/* Skills Footer - Carrusel profesional al final */}
     <footer class="skills-footer">
