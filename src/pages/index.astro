@@ -64,17 +64,17 @@ try {
   <div class="main-content">
     {/* Projects: inyectar datos como props */}
     <Projects experience={personalData.experience} socialData={personalData.social} />
-
-    {/* Contact & Reviews */}
-    <Contact initialReviews={reviews} email={personalData.email} />
-
-    {/* Skills Footer - Carrusel profesional al final */}
-    <footer class="skills-footer">
-      <div class="skills-footer-content">
-        <Skills skills={personalData.skills} />
-      </div>
-    </footer>
   </div>
+
+  {/* Contact & Reviews - Separada para mejor control visual */}
+  <Contact initialReviews={reviews} email={personalData.email} />
+
+  {/* Skills Footer - Carrusel profesional al final */}
+  <footer class="skills-footer">
+    <div class="skills-footer-content">
+      <Skills skills={personalData.skills} />
+    </div>
+  </footer>
 </Layout>
 
 <style>

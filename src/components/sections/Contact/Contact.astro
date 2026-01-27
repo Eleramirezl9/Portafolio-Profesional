@@ -38,7 +38,9 @@ const { initialReviews = [], email } = Astro.props;
     <div class={styles.contentGrid}>
       {/* Left: Contact Form */}
       <div class={styles.formSection}>
-        <ContactForm client:load email={email} />
+        <div style="position: relative; z-index: 2;">
+          <ContactForm client:load email={email} />
+        </div>
       </div>
 
       {/* Right: Reviews/Comments */}
@@ -56,10 +58,10 @@ const { initialReviews = [], email } = Astro.props;
         <ReviewsList reviews={initialReviews} client:load />
       </div>
     </div>
+  </div>
 
-    {/* Decorative Elements */}
-    <div class={styles.decoration}>
-      <div class={styles.decorationItem}></div>
-    </div>
+  {/* Decorative Elements */}
+  <div class={styles.decoration}>
+    <div class={styles.decorationItem}></div>
   </div>
 </section>
