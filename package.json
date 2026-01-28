@@ -22,5 +22,8 @@
     "react-dom": "^19.2.1",
     "sharp": "^0.34.5",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.9"
   }
 }
