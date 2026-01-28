@@ -156,11 +156,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
   };
 
   return (
-    <div class={styles.container}>
+    <div className={styles.container}>
       {/* Tabs */}
-      <div class={styles.tabs}>
+      <div className={styles.tabs}>
         <button
-          class={`${styles.tab} ${formType === 'contact' ? styles.active : ''}`}
+          className={`${styles.tab} ${formType === 'contact' ? styles.active : ''}`}
           onClick={() => handleFormTypeChange('contact')}
           disabled={loading}
         >
@@ -170,7 +170,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
           Contacto
         </button>
         <button
-          class={`${styles.tab} ${formType === 'review' ? styles.active : ''}`}
+          className={`${styles.tab} ${formType === 'review' ? styles.active : ''}`}
           onClick={() => handleFormTypeChange('review')}
           disabled={loading}
         >
@@ -182,10 +182,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} class={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         {/* Name/Apodo */}
-        <div class={styles.formGroup}>
-          <label htmlFor="authorName" class={styles.label}>
+        <div className={styles.formGroup}>
+          <label htmlFor="authorName" className={styles.label}>
             Nombre o Apodo
           </label>
           <input
@@ -195,15 +195,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
             value={formData.authorName}
             onChange={handleInputChange}
             placeholder={formType === 'contact' ? 'Tu nombre' : 'Tu apodo (puedes ser anónimo)'}
-            class={styles.input}
+            className={styles.input}
             disabled={loading}
             maxLength={50}
           />
         </div>
 
         {/* Email */}
-        <div class={styles.formGroup}>
-          <label htmlFor="email" class={styles.label}>
+        <div className={styles.formGroup}>
+          <label htmlFor="email" className={styles.label}>
             Email
           </label>
           <input
@@ -213,19 +213,19 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
             value={formData.email}
             onChange={handleInputChange}
             placeholder="tu@email.com"
-            class={styles.input}
+            className={styles.input}
             disabled={loading}
             maxLength={100}
           />
-          <small class={styles.hint}>
+          <small className={styles.hint}>
             {formType === 'review' && 'No será visible públicamente'}
           </small>
         </div>
 
         {/* Anonymous Toggle (solo para reviews) */}
         {formType === 'review' && (
-          <div class={styles.checkboxGroup}>
-            <label htmlFor="isAnonymous" class={styles.checkboxLabel}>
+          <div className={styles.checkboxGroup}>
+            <label htmlFor="isAnonymous" className={styles.checkboxLabel}>
               <input
                 type="checkbox"
                 id="isAnonymous"
@@ -233,7 +233,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
                 checked={formData.isAnonymous}
                 onChange={handleInputChange}
                 disabled={loading}
-                class={styles.checkbox}
+                className={styles.checkbox}
               />
               <span>Mostrar como anónimo</span>
             </label>
@@ -241,8 +241,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
         )}
 
         {/* Message */}
-        <div class={styles.formGroup}>
-          <label htmlFor="message" class={styles.label}>
+        <div className={styles.formGroup}>
+          <label htmlFor="message" className={styles.label}>
             Mensaje
           </label>
           <textarea
@@ -255,19 +255,19 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
                 ? 'Cuéntame qué tenés en mente...'
                 : 'Compartí tu experiencia, dudas o sugerencias...'
             }
-            class={styles.textarea}
+            className={styles.textarea}
             disabled={loading}
             rows={4}
             maxLength={1000}
           />
-          <small class={styles.charCount}>
+          <small className={styles.charCount}>
             {formData.message.length}/1000
           </small>
         </div>
 
         {/* Status Message */}
         {status !== 'idle' && (
-          <div class={`${styles.statusMessage} ${styles[status]}`}>
+          <div className={`${styles.statusMessage} ${styles[status]}`}>
             {status === 'success' && (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -285,12 +285,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ email }) => {
         {/* Submit Button */}
         <button
           type="submit"
-          class={styles.submitBtn}
+          className={styles.submitBtn}
           disabled={loading}
         >
           {loading ? (
             <>
-              <span class={styles.spinner}></span>
+              <span className={styles.spinner}></span>
               Enviando...
             </>
           ) : (

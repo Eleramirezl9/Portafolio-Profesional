@@ -8,6 +8,9 @@
 
 import type { APIRoute } from 'astro';
 import { sanityClient } from '@data/sanity.client';
+
+// Necesario para que Astro maneje GET/POST requests en modo estático
+export const prerender = false;
 import { z } from 'zod';
 import nodemailer from 'nodemailer';
 
@@ -103,14 +106,14 @@ export const POST: APIRoute = async ({ request }) => {
       const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_APP_PASSWORD,
+          user: import.meta.env.GMAIL_USER,
+          pass: import.meta.env.GMAIL_APP_PASSWORD,
         },
       });
 
       await transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: process.env.ADMIN_EMAIL || process.env.GMAIL_USER,
+        from: import.meta.env.GMAIL_USER,
+        to: import.meta.env.ADMIN_EMAIL || import.meta.env.GMAIL_USER,
         subject: 'Nueva reseña pendiente de aprobación',
         html: `
           <div style="font-family: Arial, sans-serif;">
@@ -121,7 +124,7 @@ export const POST: APIRoute = async ({ request }) => {
             <blockquote style="border-left: 4px solid #8b5cf6; padding-left: 15px;">
               ${validatedData.message}
             </blockquote>
-            <p><a href="${process.env.SANITY_STUDIO_URL || 'https://sanity.io'}" style="color: #8b5cf6;">Ver en Sanity Studio</a></p>
+            <p><a href="${import.meta.env.SANITY_STUDIO_URL || 'https://sanity.io'}" style="color: #8b5cf6;">Ver en Sanity Studio</a></p>
           </div>
         `,
       });

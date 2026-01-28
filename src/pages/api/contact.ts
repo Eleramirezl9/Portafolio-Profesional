@@ -11,6 +11,9 @@ import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
 import { z } from 'zod';
 
+// Necesario para que Astro maneje POST requests en modo server
+export const prerender = false;
+
 // Schema de validación
 const ContactSchema = z.object({
   authorName: z.string().min(2, 'Nombre muy corto').max(50),
@@ -19,33 +22,40 @@ const ContactSchema = z.object({
   recipientEmail: z.string().email('Email del destinatario inválido'),
 });
 
-// Crear transporter de Nodemailer
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
-
 export const POST: APIRoute = async ({ request }) => {
-  // Solo POST
-  if (request.method !== 'POST') {
-    return new Response(
-      JSON.stringify({ message: 'Método no permitido' }),
-      { status: 405 }
-    );
-  }
-
   try {
     const data = await request.json();
 
     // Validar datos
     const validatedData = ContactSchema.parse(data);
 
+    // Obtener credenciales de Gmail desde variables de entorno
+    const gmailUser = import.meta.env.GMAIL_USER;
+    const gmailPassword = import.meta.env.GMAIL_APP_PASSWORD;
+
+    if (!gmailUser || !gmailPassword) {
+      console.error('Gmail credentials not configured');
+      return new Response(
+        JSON.stringify({
+          message: 'El servicio de email no está configurado. Por favor contacta directamente.',
+          success: false,
+        }),
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Crear transporter de Nodemailer
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: gmailUser,
+        pass: gmailPassword,
+      },
+    });
+
     // Enviar email al propietario
     await transporter.sendMail({
-      from: process.env.GMAIL_USER,
+      from: gmailUser,
       to: validatedData.recipientEmail,
       subject: `Nuevo mensaje de ${validatedData.authorName}`,
       html: `
@@ -72,7 +82,7 @@ export const POST: APIRoute = async ({ request }) => {
         message: '¡Mensaje enviado correctamente! Te responderé pronto.',
         success: true,
       }),
-      { status: 200 }
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('Contact form error:', error);
@@ -84,7 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
           message: error.errors[0].message,
           success: false,
         }),
-        { status: 400 }
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -94,7 +104,7 @@ export const POST: APIRoute = async ({ request }) => {
         message: 'Error al enviar el mensaje. Intenta nuevamente.',
         success: false,
       }),
-      { status: 500 }
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };

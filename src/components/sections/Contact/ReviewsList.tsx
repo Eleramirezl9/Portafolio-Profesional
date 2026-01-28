@@ -66,32 +66,32 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews: initialReviews }) =>
   };
 
   return (
-    <div class={styles.container}>
+    <div className={styles.container}>
       {reviews.length === 0 ? (
-        <div class={styles.empty}>
+        <div className={styles.empty}>
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
-          <p class={styles.emptyText}>
+          <p className={styles.emptyText}>
             Sé el primero en compartir tu experiencia 💭
           </p>
           <small>Los comentarios aparecerán aquí después de ser aprobados</small>
         </div>
       ) : (
         <>
-          <div class={styles.reviewsList}>
+          <div className={styles.reviewsList}>
             {reviews.map((review) => (
-              <div key={review._id} class={styles.reviewItem}>
+              <div key={review._id} className={styles.reviewItem}>
                 {/* Header con autor y fecha */}
-                <div class={styles.reviewHeader}>
-                  <div class={styles.authorInfo}>
-                    <div class={styles.authorAvatar}>
+                <div className={styles.reviewHeader}>
+                  <div className={styles.authorInfo}>
+                    <div className={styles.authorAvatar}>
                       {review.isAnonymous ? (
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                         </svg>
                       ) : (
-                        <div class={styles.initials}>
+                        <div className={styles.initials}>
                           {review.authorName
                             .split(' ')
                             .map((n) => n[0])
@@ -101,15 +101,15 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews: initialReviews }) =>
                         </div>
                       )}
                     </div>
-                    <div class={styles.authorMeta}>
-                      <div class={styles.authorName}>
+                    <div className={styles.authorMeta}>
+                      <div className={styles.authorName}>
                         {review.isAnonymous ? 'Anónimo' : review.authorName}
                       </div>
-                      <time class={styles.date}>{formatDate(review.createdAt)}</time>
+                      <time className={styles.date}>{formatDate(review.createdAt)}</time>
                     </div>
                   </div>
                   {review.isAnonymous && (
-                    <span class={styles.anonymousBadge}>
+                    <span className={styles.anonymousBadge}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.72-7 8.77V12H5V6.3l7-3.11v8.8z"/>
                       </svg>
@@ -119,11 +119,11 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews: initialReviews }) =>
                 </div>
 
                 {/* Mensaje */}
-                <p class={styles.reviewMessage}>{review.message}</p>
+                <p className={styles.reviewMessage}>{review.message}</p>
 
                 {/* Footer */}
-                <div class={styles.reviewFooter}>
-                  <button class={styles.likeBtn} title="Me gusta este comentario">
+                <div className={styles.reviewFooter}>
+                  <button className={styles.likeBtn} title="Me gusta este comentario">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
@@ -135,7 +135,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews: initialReviews }) =>
 
           {/* Refresh Button */}
           <button
-            class={styles.refreshBtn}
+            className={styles.refreshBtn}
             onClick={fetchReviews}
             disabled={isLoading}
             title="Actualizar comentarios"
@@ -147,7 +147,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews: initialReviews }) =>
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              class={isLoading ? styles.spinning : ''}
+              className={isLoading ? styles.spinning : ''}
             >
               <polyline points="23 4 23 10 17 10"></polyline>
               <path d="M20.49 15a9 9 0 1 1-2-8.83"></path>
